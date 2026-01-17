@@ -1,0 +1,303 @@
+﻿@{
+    // Html.RenderPartial("_jwt_token_check");
+    ViewData["Title"] = "DataGridUXDemo";
+    var scriptNonce = Html.ScriptNonce();
+    //var styleNonce = Html.StyleNonce();
+}
+
+<div class="full-screen-image">
+    <img src="/img/zcoder3.png" alt="Hero Image">
+</div>
+<div class="zzzhero-image-wrapper">
+    <div class="logo-block">
+        <h1 class="display-5 fw-bold">DataGridUXDemo</h1>
+    </div>
+    <div class="canvas-block">
+        <canvas id="netcanvas" width="800" height="70" style="display: block; width: 100%; height: 70px; border: none transparent;"></canvas>
+    </div>
+
+    <div class="text-block" style="padding-top: 10px !important; width: 390px; text-align: left; margin-left: 10px;">
+        <br class="lead mt-2">
+        Advanced DataGrid for iMac & Windows<br />
+        100% FREE with Full Source Code!
+    </div>
+
+    <ul class="text-block2" style="list-style: none; padding-left: 0;">
+        <li>
+            <img src="/img/zcirclecheck.png" style="width: 16px; vertical-align: middle; margin-right: 6px;" />
+            Drag-and-drop column grouping
+        </li>
+        <li>
+            <img src="/img/zcirclecheck.png" style="width: 16px; vertical-align: middle; margin-right: 6px;" />
+            Sorting/paging with visual indicators
+        </li>
+        <li>
+            <img src="/img/zcirclecheck.png" style="width: 16px; vertical-align: middle; margin-right: 6px;" />
+            Runtime light/dark theme switching<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;using Bootstrap 5 global theming
+        </li>
+        <li>
+            <img src="/img/zcirclecheck.png" style="width: 16px; vertical-align: middle; margin-right: 6px;" />
+            Independent table header theme<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;toggling for fine-grained control
+        </li>
+        <li>
+            <img src="/img/zcirclecheck.png" style="width: 16px; vertical-align: middle; margin-right: 6px;" />
+            Polished, desktop-like grid experience
+        </li>
+        <li>&nbsp;</li>
+        <li onclick="window.location.href='#';" style="cursor: pointer;">
+            <img src="/img/Zarrow-right.png"
+                 style="width: 16px; vertical-align: middle; margin-right: 6px;" />
+            Explore how DataTables, Bootstrap, and<br />
+            custom CSS/JavaScript work together to<br />
+            build enterprise-grade grids
+        </li>
+    </ul>
+
+    @* <div class="d-flex justify-content-center gap-2 mt-4 zbutts">
+        <button type="button" class="btn white" id="btnCreateCompany">Create Company</button>
+        <button type="button" class="btn white" id="btnAddAccounts">Add Accounts</button>
+        <button type="button" class="btn white" id="btnMarketing">FREE Course</button>
+    </div> *@
+    @* <div class="top-right">
+        <img src="~/img/tv_white.png" alt="As Seen On TV" style="max-width: 100px; height: auto;" />
+    </div> *@
+</div>
+
+
+@section Scripts {
+
+    <script nonce="@scriptNonce">
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            if (!sessionStorage.getItem("splashShown")) {
+                showSplashModal();
+                sessionStorage.setItem("splashShown", "true");
+            }
+
+            // Check if the splash modal was already shown
+            if (!localStorage.getItem("splashShown")) {
+                // Call your function
+                showSplashModal();
+                // Mark as shown so it doesn't show again
+                localStorage.setItem("splashShown", "true");
+            }
+
+        });
+
+        document.getElementById('btnCreateCompany').addEventListener('click', function () {
+            //alert('Create Company clicked');
+            window.location.href = '/Company/Index';
+        });
+
+        document.getElementById('btnAddAccounts').addEventListener('click', function () {
+            //alert('Add Accounts clicked');
+            window.location.href = '/Account/Index';
+        });
+
+        // ✅ btnMarketing
+        // const marketingBtn = document.getElementById('btnMarketing');
+        // if (marketingBtn) {
+        //             //C:\!websites\ainetprofit.com\AINetProfit\wwwroot\down\MarketingGuide.pdf
+        //     marketingBtn.addEventListener('click', function () {
+        //         //const helpUrl = encodeURIComponent("https://ainetprofit.com/Manual");
+        //         const helpUrl = encodeURIComponent("https://down/MarketingGuide.pdf");
+        //         const launchHelpEndpoint = '@Url.Action("wwwroot", "Home")'; // ✅ generates correct path for this app
+
+        //         fetch(`${launchHelpEndpoint}?url=${helpUrl}`)
+        //             .then(response => {
+        //                 if (!response.ok) throw new Error("Failed to launch help");
+        //                 console.log("Help launched");
+        //             })
+        //             .catch(error => console.error("Error:", error));
+        //     });
+        // }
+        const marketingBtn = document.getElementById('btnMarketing');
+        if (marketingBtn) {
+            marketingBtn.addEventListener('click', function () {
+                window.open('https://ainetprofit.com//down/MarketingGuide.pdf', '_blank');
+            });
+        }
+
+    </script>
+
+    <script nonce="@scriptNonce">
+        // ✅ Ensure global theme is applied on this view based on saved preference
+        (function initGlobalTheme() {
+            localStorage.setItem('bankLetterFilter', 'A');
+            try {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+
+                if (savedTheme === 'dark') {
+                    document.body.classList.remove('light-theme');
+                    document.body.classList.add('dark-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'dark'); // Bootstrap 5.3.3 global theme
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    document.body.classList.add('light-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'light'); // Bootstrap 5.3.3 global theme
+                }
+            } catch (e) {
+                console.warn('Theme init failed on Welcome view:', e);
+            }
+        })();
+    </script>
+
+}
+
+
+<style>
+    @@media only screen and (max-width: 768px) {
+
+        #netcanvas {
+            position: relative;
+            text-align: center;
+            color: white;
+            width: 100% !important;
+            height: auto !important;
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 0%;
+        object-view-box: 0 0 300 300; /* x y w h */
+    }
+
+    .full-screen-width {
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        max-width: 100vw;
+        width: 100vw;
+    }
+
+    .full-screen-image {
+        position: fixed; /* Sticks to viewport */
+        top: 0;
+        left: 0;
+        width: 100vw; /* Full width */
+        height: 100vh; /* Full height */
+        overflow: hidden;
+        z-index: -1; /* Behind all content */
+    }
+
+        .full-screen-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Scale to cover both width and height */
+            object-position: center;
+        }
+
+    .zcontainer {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .bottom-left {
+        position: absolute;
+        bottom: 8px;
+        left: 16px;
+    }
+
+    .top-left {
+        position: absolute;
+        top: 8px;
+        left: 16px;
+    }
+
+    .top-right {
+        position: absolute;
+        top: 120px;
+        right: 56px;
+        z-index: 999;
+    }
+
+    .bottom-right {
+        position: absolute;
+        bottom: 8px;
+        right: 16px;
+    }
+
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .canvas-block {
+        position: absolute;
+        background-color: transparent;
+        color: white;
+        top: 80px;
+        z-index: 999;
+    }
+
+    .logo-block {
+        position: absolute;
+        background-color: transparent;
+        color: white;
+        top: 70px;
+        z-index: 999;
+    }
+
+    .text-block {
+        position: absolute;
+        background-color: transparent;
+        color: white;
+        top: 110px;
+        z-index: 999;
+        font-size: 1.1em !important;
+    }
+
+    .text-block2 {
+        position: absolute;
+        background-color: transparent;
+        color: white;
+        top: 200px;
+        z-index: 999;
+    }
+
+    /* Bootstrap modal uses z-index around 1050–1060 */
+    .zbutts {
+        position: fixed; /* ✅ stays fixed relative to viewport, not container */
+        bottom: 60px; /* distance from bottom edge of screen */
+        right: 40px; /* distance from right edge of screen */
+        z-index: 100; /* Lower than Bootstrap's modal backdrop (1050) */
+        display: flex; /* keep buttons in a row */
+        gap: 10px; /* spacing between buttons */
+        color: black !important;
+    }
+  
+    /* ✅ Prevent theme overrides for these specific buttons */
+    body.dark-theme .zbutts .btn,
+    body.light-theme .zbutts .btn {
+        background-color: #f8f9fa !important;
+        color: black !important;
+        border: 1px solid #000000 !important;
+    }
+
+    /* body {
+        background: url('/img/zwelcome69.png') no-repeat center center fixed;
+        background-size: cover;
+    } */
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden; /* ⛔ disables ALL scrolling */
+    }
+
+    /* .zzzhero-image-wrapper {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+    } */
+
+</style>

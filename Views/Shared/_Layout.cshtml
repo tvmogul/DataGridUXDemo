@@ -1,0 +1,1186 @@
+﻿@using DataGridUXDemo.Helpers
+@VersionHelper.GetAssemblyVersion()
+@VersionHelper.GetInformationalVersion()
+@VersionHelper.GetFormattedAppTitle()
+@inject IConfiguration Configuration
+
+@{
+    var scriptNonce = Html.ScriptNonce();
+    //var styleNonce = Html.StyleNonce();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="env" content="Production" />
+    <title>DataGridUXDemo</title>
+    <script type="importmap"></script>
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.ico" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css"  />
+    <link rel="stylesheet" href="~/css/hover.css" />
+    <link rel="stylesheet" href="~/css/buttons.css" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="~/lib/datatables/dataTables.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/autoFill.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/buttons.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/colReorder.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/dataTables.dateTime.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/fixedHeader.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/keyTable.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/responsive.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/rowGroup.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/rowReorder.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/scroller.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/searchBuilder.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/searchPanes.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/select.bootstrap5.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/stateRestore.bootstrap5.min.css" asp-append-version="true" />
+
+    <style>
+        .dropdown-menu {
+            max-height: 284px;
+        }
+        .external-link {
+            pointer-events: auto !important;
+        }
+
+        .navbar {
+            background-image: linear-gradient( to bottom, #ffffff 0%, #eeeeee 30%, #d9d9d9 100% ) !important;
+            background-color: #eeeeee !important;
+            border-bottom: 2px solid #c0c0c0;
+        }
+    </style>
+
+</head>
+<body class="flexcroll-white flex flex-col h-screen">
+    <header style="z-index: 9999999999999999999999999999999;">
+        <nav class="navbar fixed-top navbar-expand-sm bg-white border-bottom mb-3 shadow">
+            <div class="container-fluid">
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand" style="margin-top: 0px !important;">
+                    <h3 class="fw-bold" style="margin: 0; font-weight: bold;padding-top: 0px !important;">
+                        DataGridUXDemo
+                    </h3>
+                </a>
+                <button class="navbar-toggler" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" 
+                    aria-expanded="false" 
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav" style="margin-top: -8px !important;">
+                    <ul class="navbar-nav 
+                        flex-grow-1 align-items-center" 
+                        style="font-weight: bold !important; 
+                                line-height: .9em !important;">
+                        <li class="nav-item" style="text-align: center !important; padding-top: 12px !important;">
+                            <a class="nav-link hvr-grow" asp-area="" asp-controller="Home" asp-action="Privacy">DataGrid<br />UXDemo</a>
+                        </li>
+
+                        <li class="nav-item" style="text-align: center !important; padding-top: 12px !important;">
+                            <a class="nav-link external-link"
+                               href="https://github.com/tvmogul/DataGridUXDemo"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                GitHub<br />Project
+                            </a>
+                        </li>
+
+                        <li class="nav-item" style="text-align: center !important; padding-top: 12px !important;">
+                            <a class="nav-link hvr-grow" asp-area="" asp-controller="Home" asp-action="Privacy2">AI<br />Tools</a>
+                        </li>
+
+                    </ul>
+                    @* @if (!string.IsNullOrWhiteSpace(displayName))
+                    {
+                        <li class="nav-item d-flex align-items-center ms-2">
+                            <span class="navbar-text fw-semibold text-black px-2 py-1 rounded-2" 
+                                    style="font-size: .7em !important;background-color: transparent !important;white-space: nowrap;padding-top: 12px !important;">
+                                <i class="bi bi-building me-1"></i> @displayName
+                            </span>
+                        </li>
+                    } *@
+
+                    <!-- Right-aligned Ad item -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item" style="text-align: right !important; padding: 12px 12px 0px 0px !important;">
+                            <!-- ✅ Updated to include sub_confirmation=1 for direct subscribe prompt -->
+                            <a class="nav-link external-link"
+                               href="https://www.youtube.com/channel/UCTSL7kPXsdBkh918wyWVCuQ?sub_confirmation=1"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                <img src="/img/youtube.png" style="width: 100px; height: auto;" alt="Subscribe on YouTube" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        @* <main role="main" class="pb-3 zpad">
+            @RenderBody()
+            @Html.PartialAsync("_AuthorizeModal")
+            @Html.PartialAsync("_MessageModal")
+            @Html.PartialAsync("_SplashModal")
+            @Html.PartialAsync("_SplitModal")
+            @Html.PartialAsync("_CompanyModal")
+            @Html.PartialAsync("_CategoryPickerModal")
+            @await Html.PartialAsync("_CategoryModal")
+        </main> *@
+        <main role="main" class="pb-3" style="padding-top: 36px !important;">
+            @RenderBody()
+            @* @Html.Partial("_SplashModal") *@
+        </main>
+    </div>
+
+    <footer class="border-top footer fixed-bottom text-muted" style="background-color: white; z-index: 1020;">
+        <div style="font-size: .9em !important;padding: 5px 22px !important; display: flex; align-items: center; gap: 15px;">
+            @* <p class="not-printable footer_div_p mb-0">
+                &copy; 1991 - @DateTime.Now.Year, Ouslan, Inc.</p> *@
+            @* <span style="margin-top: 0px !important;">Version: @VersionHelper.GetInformationalVersion()</span> *@
+            @* <div id="selectedDB" style="margin-top: 0px !important;color: #0d6efd;"></div> *@
+
+            <p class="not-printable footer_div_p mb-0">
+                &copy; 1991 - @DateTime.Now.Year, Ouslan, Inc.
+                <span style="margin-top: 0px !important;">Version: @Configuration["AppInfo:AppVersion"]</span>
+                <div id="selectedDB" style="margin-top: 0px !important;color: #0d6efd;"></div>
+            </p>
+            @* <div id="selectedDB" style="font-size: .9em !important;margin-top: 0px !important;"></div> *@
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+@*     <script src="~/js/site.js"></script> *@
+
+    @* DO NOT INCLUDE THESE BECAUSE THEY CAUSE MANY ISSUES!!! *@
+    @* <link rel="stylesheet" href="/lib/datatables/fixedColumns.bootstrap5.min.css" nonce="@scriptNonce" asp-append-version="true" /> *@
+    @* <script src="/lib/datatables/fixedColumns.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script> *@
+
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" nonce="@scriptNonce"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js" nonce="@scriptNonce"></script>
+
+    <!-- Required for Excel and PDF export -->
+    <script src="/lib/datatables/jszip.min.js" nonce="@scriptNonce"></script>
+    <script src="/lib/datatables/pdfmake.min.js" nonce="@scriptNonce"></script>
+    <script src="/lib/datatables/vfs_fonts.js" nonce="@scriptNonce"></script>
+    <script src="/lib/datatables/dataTables.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.buttons.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/buttons.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/buttons.colVis.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/buttons.html5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/buttons.print.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.autoFill.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/autoFill.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.colReorder.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/colReorder.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.fixedColumns.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.dateTime.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    @* <script src="/lib/datatables/fixedColumns.bootstrap5.min.js"nonce="@scriptNonce" asp-append-version="true"></script> *@
+    <script src="/lib/datatables/dataTables.fixedHeader.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/fixedHeader.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.keyTable.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/keyTable.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.responsive.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/responsive.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.rowGroup.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/rowGroup.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.rowReorder.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/rowReorder.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.scroller.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/scroller.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.searchBuilder.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/searchBuilder.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.searchPanes.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/searchPanes.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.select.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/select.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/dataTables.stateRestore.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/datatables/stateRestore.bootstrap5.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+
+    <script src="/lib/fabric.js/fabric.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/lib/tagcanvas/tagcanvas.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/js/xlsx.full.min.js" nonce="@scriptNonce" asp-append-version="true"></script>
+    <script src="/js/chart.umd.min.js" nonce="@scriptNonce"></script>
+
+    <script nonce="@scriptNonce">
+
+        let currentAuthorizeModal = null;
+        let currentCompanyAccountModal = null;
+        let currentSplashModal = null;
+
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     loadCompanyList();
+
+        //     // Initialize footer with current database
+        //     getSelectedDatabase().then(db => {
+        //         if (typeof window.updateFooterText === 'function') {
+        //             window.updateFooterText(db);
+        //         }
+        //     });
+        // });
+
+        function showCategoryPickerModal() {
+            // Clear any previous exclusions on each launch
+            document.getElementById('excludedCategoriesCsv').value = '';
+
+            // Build modal from the wrapper template
+            const modalHtml = document.getElementById("categoryPickerModalWrapper").innerHTML;
+            const container = document.createElement("div");
+            container.innerHTML = modalHtml;
+            document.body.appendChild(container);
+
+            const modalElement = container.querySelector("#categoryPickerModal");
+            const all = modalElement.querySelector('#lbAllCategories');
+            const ex = modalElement.querySelector('#lbExcludedCategories');
+            const hint = modalElement.querySelector('#exclusionCountHint');
+
+            // Init Bootstrap modal
+            currentCategoryPickerModal = new bootstrap.Modal(modalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            // ---------- Helpers ----------
+            function sortSelect(sel) {
+                const opts = Array.from(sel.options);
+                opts.sort((a, b) => a.text.localeCompare(b.text, undefined, { sensitivity: 'base' }));
+                sel.innerHTML = ''; // clear existing options
+                opts.forEach(opt => sel.appendChild(opt));
+            }
+
+            function updateCount() {
+                const n = ex && ex.options ? ex.options.length : 0;
+                hint.textContent = n + ' excluded';
+            }
+
+            function moveSelected(from, to) {
+                const selected = Array.from(from.selectedOptions);
+                selected.forEach(opt => to.appendChild(opt));
+                sortSelect(to);
+                updateCount();
+            }
+
+            function moveAll(from, to) {
+                const all = Array.from(from.options);
+                all.forEach(opt => to.appendChild(opt));
+                sortSelect(to);
+                updateCount();
+            }
+
+            // ---------- Wire buttons ----------
+
+            // Add >>
+            modalElement.querySelector('#btnAdd').addEventListener('click', function () {
+                moveSelected(all, ex);
+            });
+
+            // Remove <<
+            modalElement.querySelector('#btnRemove').addEventListener('click', function () {
+                moveSelected(ex, all);
+            });
+
+            // Add All >>
+            modalElement.querySelector('#btnAddAll').addEventListener('click', function () {
+                moveAll(all, ex);
+            });
+
+            // Remove All <<
+            modalElement.querySelector('#btnRemoveAll').addEventListener('click', function () {
+                moveAll(ex, all);
+            });
+
+            // Double-click to move between lists
+            all.addEventListener('dblclick', function () { moveSelected(all, ex); });
+            ex.addEventListener('dblclick', function () { moveSelected(ex, all); });
+
+            // Apply -> store CSV of excluded names and close
+            modalElement.querySelector('#cp_btnApply').addEventListener('click', function () {
+                const excluded = Array.from(ex.options).map(o => o.value);
+                document.getElementById('excludedCategoriesCsv').value = excluded.join(',');
+                currentCategoryPickerModal.hide();
+            });
+
+            // Cleanup the injected container after the modal fully hides
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                container.remove();
+            });
+
+            // ---------- Load categories via AJAX (no fetch) ----------
+            (function loadCategoriesIntoPicker() {
+                var preExcludedCsv = $('#excludedCategoriesCsv').val() || '';
+                var preExcludedSet = new Set(
+                    preExcludedCsv.split(',')
+                        .map(function(s){ return s.trim(); })
+                        .filter(function(s){ return s.length > 0; })
+                );
+
+                // Clear lists
+                $all.empty();
+                $ex.empty();
+
+                $.ajax({
+                    url: '/Category/GetCategories',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { onlyUser: false },
+                    success: function(rows) {
+                        if (!Array.isArray(rows)) rows = [];
+
+                        var leftOpts = [];
+                        var rightOpts = [];
+
+                        for (var i = 0; i < rows.length; i++) {
+                            var name = (rows[i].Name || '').trim();
+                            if (!name) continue;
+                            if (name.toLowerCase() === 'uncategorized') continue; // never used in reports
+                            var id = (rows[i].CategoryID || '').trim();
+
+                            var opt = new Option(name, name); // value=name for CSV
+                            if (id) $(opt).attr('data-id', id); // preserve ID if needed later
+
+                            if (preExcludedSet.has(name)) rightOpts.push(opt);
+                            else leftOpts.push(opt);
+                        }
+
+                        leftOpts.sort(function(a,b){ return a.text.localeCompare(b.text, undefined, {sensitivity:'base'}); });
+                        rightOpts.sort(function(a,b){ return a.text.localeCompare(b.text, undefined, {sensitivity:'base'}); });
+
+                        leftOpts.forEach(function(o){ $all.append(o); });
+                        rightOpts.forEach(function(o){ $ex.append(o); });
+
+                        updateCount();
+                    },
+                    error: function(xhr, status, err) {
+                        console.error('GetCategories error:', status, err);
+                        updateCount();
+                    }
+                });
+            })();
+
+            // Show modal
+            currentCategoryPickerModal.show();
+        }
+
+        function showAuthorizeModal() {
+            //currentCompanyAccountModal
+            const modalHtml = document.getElementById("authorizeModalWrapper").innerHTML;
+            const container = document.createElement("div");
+            container.innerHTML = modalHtml;
+            document.body.appendChild(container);
+
+            const modalElement = container.querySelector("#authorizeModal");
+            currentAuthorizeModal = new bootstrap.Modal(modalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            currentAuthorizeModal.show();
+        }
+
+        function authorize() {
+            const email = document.getElementById("emailInput").value.trim();
+            if (email) {
+                alert("Proversion is FREE for Now!");
+            } else {
+                alert("Please enter your email.");
+            }
+            runApp();
+        }
+
+        function company() {
+            const email = document.getElementById("emailInput").value.trim();
+            if (email) {
+                alert("Authorizing with: " + email);
+            } else {
+                alert("Please enter your email.");
+            }
+        }
+
+        // Define a global fallback only if one does not already exist
+        if (typeof window.waitForElementById !== 'function') {
+            window.waitForElementById = function (id, timeout = 3000) {
+                return new Promise((resolve, reject) => {
+                    if (!id) return reject(new Error('no id'));
+                    const found = document.getElementById(id);
+                    if (found) return resolve(found);
+
+                    const start = Date.now();
+                    const timer = setInterval(() => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            clearInterval(timer);
+                            resolve(el);
+                        } else if (Date.now() - start > timeout) {
+                            clearInterval(timer);
+                            reject(new Error('timeout'));
+                        }
+                    }, 50);
+                });
+            };
+        }
+
+        function showSplashModal() {
+            const modalHtml = document.getElementById("splashModalWrapper").innerHTML;
+            const container = document.createElement("div");
+            container.innerHTML = modalHtml;
+            document.body.appendChild(container);
+
+            const modalElement = container.querySelector("#splashModal");
+            currentSplashModal = new bootstrap.Modal(modalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            currentSplashModal.show();
+
+            // FIXED: Manually trigger hookModalEvents after modal is shown
+            setTimeout(() => hookModalEvents(modalElement), 300); // Slight delay ensures DOM is ready
+        }
+        // async function showSplashModal() {
+        //     try {
+        //         // Wait for wrapper, but handle rejection gracefully
+        //         const wrapper = await waitForElementById("splashModalWrapper").catch(() => null);
+        //         if (!wrapper) {
+        //             console.warn('showSplashModal: "#splashModalWrapper" not found');
+        //             return false;
+        //         }
+
+        //         const modalHtml = wrapper.innerHTML;
+        //         if (!modalHtml || typeof modalHtml !== 'string' || !modalHtml.trim()) {
+        //             console.warn('showSplashModal: wrapper has no inner HTML to inject');
+        //             return false;
+        //         }
+
+        //         // Prevent injecting the same modal multiple times
+        //         let container = document.querySelector('div[data-splash-injected="true"]');
+        //         if (!container) {
+        //             container = document.createElement("div");
+        //             container.setAttribute('data-splash-injected', 'true');
+        //             // assign inert role to avoid immediate execution of inline scripts, if any
+        //             container.innerHTML = modalHtml;
+        //             document.body.appendChild(container);
+        //         }
+
+        //         // Find the modal inside the injected container to avoid collisions with other markup
+        //         const modalElement = container.querySelector("#splashModal");
+        //         if (!modalElement) {
+        //             console.warn('showSplashModal: injected modal element "#splashModal" not found');
+        //             return false;
+        //         }
+
+        //         // Ensure bootstrap Modal is available
+        //         if (!window.bootstrap || typeof bootstrap.Modal !== 'function') {
+        //             console.warn('showSplashModal: bootstrap.Modal is not available yet');
+        //             return false;
+        //         }
+
+        //         // If we previously created a modal instance, hide/replace it safely
+        //         if (currentSplashModal) {
+        //             try { currentSplashModal.hide(); } catch (_) { /* ignore */ }
+        //             currentSplashModal = null;
+        //         }
+
+        //         currentSplashModal = new bootstrap.Modal(modalElement, {
+        //             backdrop: 'static',
+        //             keyboard: false
+        //         });
+
+        //         modalElement.addEventListener('shown.bs.modal', () => {
+        //             hookModalEvents(modalElement);
+        //             addStarsToSplash(modalElement);
+        //         }, { once: true });
+
+        //         currentSplashModal.show();
+        //         return true;
+        //     } catch (err) {
+        //         console.error('showSplashModal unexpected error:', err);
+        //         return false;
+        //     }
+        // }
+
+        // async function showSplashModal() {
+        //     try {
+        //         // Use global helper if available, otherwise use a local fallback poller.
+        //         const wait = (typeof window.waitForElementById === 'function')
+        //             ? window.waitForElementById
+        //             : function (id, timeout = 3000) {
+        //                 return new Promise((resolve, reject) => {
+        //                     if (!id) return reject(new Error('no id'));
+        //                     const found = document.getElementById(id);
+        //                     if (found) return resolve(found);
+        //                     const start = Date.now();
+        //                     const timer = setInterval(() => {
+        //                         const el = document.getElementById(id);
+        //                         if (el) {
+        //                             clearInterval(timer);
+        //                             resolve(el);
+        //                         } else if (Date.now() - start > timeout) {
+        //                             clearInterval(timer);
+        //                             reject(new Error('timeout'));
+        //                         }
+        //                     }, 50);
+        //                 });
+        //             };
+
+        //         const wrapper = await wait("splashModalWrapper").catch(() => null);
+        //         if (!wrapper) {
+        //             console.warn('showSplashModal: "#splashModalWrapper" not found');
+        //             return false;
+        //         }
+
+        //         const modalHtml = wrapper.innerHTML;
+        //         if (!modalHtml || typeof modalHtml !== 'string' || !modalHtml.trim()) {
+        //             console.warn('showSplashModal: wrapper has no inner HTML to inject');
+        //             return false;
+        //         }
+
+        //         let container = document.querySelector('div[data-splash-injected="true"]');
+        //         if (!container) {
+        //             container = document.createElement("div");
+        //             container.setAttribute('data-splash-injected', 'true');
+        //             container.innerHTML = modalHtml;
+        //             document.body.appendChild(container);
+        //         }
+
+        //         const modalElement = container.querySelector("#splashModal");
+        //         if (!modalElement) {
+        //             console.warn('showSplashModal: injected modal element "#splashModal" not found');
+        //             return false;
+        //         }
+
+        //         if (!window.bootstrap || typeof bootstrap.Modal !== 'function') {
+        //             console.warn('showSplashModal: bootstrap.Modal is not available yet');
+        //             return false;
+        //         }
+
+        //         if (currentSplashModal) {
+        //             try { currentSplashModal.hide(); } catch (_) { /* ignore */ }
+        //             currentSplashModal = null;
+        //         }
+
+        //         currentSplashModal = new bootstrap.Modal(modalElement, {
+        //             backdrop: 'static',
+        //             keyboard: false
+        //         });
+
+        //         modalElement.addEventListener('shown.bs.modal', () => {
+        //             hookModalEvents(modalElement);
+        //             addStarsToSplash(modalElement);
+        //         }, { once: true });
+
+        //         currentSplashModal.show();
+        //         return true;
+        //     } catch (err) {
+        //         console.error('showSplashModal unexpected error:', err);
+        //         return false;
+        //     }
+        // }
+
+        function splash() {
+            const email = document.getElementById("emailInput").value.trim();
+            if (email) {
+                alert("Authorizing with: " + email);
+            } else {
+                alert("Please enter your email.");
+            }
+        }
+
+        function runApp() {
+
+            // Find the closest modal ancestor of the button that called this function
+            const modalEl = document.querySelector('.modal.show');
+            if (modalEl) {
+                const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                modalInstance.hide();
+            }
+
+            // if (currentAuthorizeModal) {
+            //     currentAuthorizeModal.hide();
+            //     currentAuthorizeModal = null;
+            // }
+            // if (currentCompanyAccountModal) {
+            //     currentCompanyAccountModal.hide();
+            //     currentCompanyAccountModal = null;
+            // }
+            // if (currentSplashModal) {
+            //     currentSplashModal.hide();
+            //     currentSplashModal = null;
+            // }
+
+            // DO NOT redirect or reload here — just close the popup
+            // Then do your redirect or run logic
+            //window.location.href = "/Home/Index"; // or your route
+        }
+
+        function showTextConfirmModal(title, message, onYes, onNo) {
+            document.getElementById("modalTitle").textContent = title;
+            document.getElementById("modalBody").textContent = message;
+
+            const modalElement = document.getElementById('textConfirmModal');
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+
+            // Assign new event handlers
+            document.getElementById("btnYes").onclick = function () {
+                modal.hide();
+                removeModalBackdrop(); // ✅ Ensure backdrop is removed
+                if (onYes) onYes();
+            };
+
+            document.getElementById("btnNo").onclick = function () {
+                modal.hide();
+                removeModalBackdrop(); // ✅ Ensure backdrop is removed
+                if (onNo) onNo();
+            };
+
+            // ✅ Also clean up on modal hidden
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                removeModalBackdrop();
+            });
+        }
+
+        // ✅ Helper function to remove leftover Bootstrap backdrops
+        function removeModalBackdrop() {
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        }
+
+        function setSelectedDatabase(dbName) {
+            $.ajax({
+                url: '/GlobalState/SetDatabase',
+                method: 'POST',
+                data: { databaseName: dbName },
+                async: false,
+                success: function () {
+                    console.log("Database name set to:", dbName);
+                },
+                error: function () {
+                    console.error("Failed to set database name.");
+                }
+            });
+        }
+
+        function getCurrentDatabase() {
+            var dbName = "";
+            $.ajax({
+                url: '/GlobalState/GetDatabase',
+                method: 'GET',
+                async: false,
+                success: function (data) {
+                    dbName = data;
+                },
+                error: function () {
+                    console.error("Failed to get database name.");
+                }
+            });
+            return dbName;
+        }
+
+        function getCurrentAccount() {
+            var accountName = "";
+            $.ajax({
+                url: '/GlobalState/GetAccount',
+                method: 'GET',
+                async: false,
+                success: function (data) {
+                    accountName = data;
+                },
+                error: function () {
+                    console.error("Failed to get database name.");
+                }
+            });
+            return accountName;
+        }
+
+        function applyThemeToDropdowns(buttonIds, menuIds) {
+            const appTheme = "dark"; // or "dark"
+            //const lightBtnClass = "btn btn-sm btn-outline-success dropdown-toggle fw-bold";
+            const lightBtnClass = "btn btn-sm btn-outline-secondary dropdown-toggle fw-bold";
+            const darkBtnClass = "btn btn-sm btn-outline-dark dropdown-toggle fw-bold";
+
+            const lightMenuClass = "forestgreen-scrollbar";
+            const darkMenuClass = "gray-scrollbar";
+
+            buttonIds.forEach(id => {
+                const className = appTheme === "light" ? lightBtnClass : darkBtnClass;
+                $("#" + id).attr("class", className);
+            });
+
+            menuIds.forEach(id => {
+                const menu = $("#" + id);
+                menu.removeClass(lightMenuClass + " " + darkMenuClass);
+                menu.addClass(appTheme === "light" ? lightMenuClass : darkMenuClass);
+            });
+        }
+
+        // Helper function
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+
+        // document.addEventListener("DOMContentLoaded", () => {
+        //     document.querySelectorAll("a.external-link").forEach(link => {
+        //         link.addEventListener("click", function (e) {
+        //             e.preventDefault();
+
+        //             const url = link.getAttribute("href");
+        //             if (!url) return;
+
+        //             fetch("/External/Open", {
+        //                 method: "POST",
+        //                 headers: {
+        //                     "Content-Type": "application/json"
+        //                 },
+        //                 body: JSON.stringify({ url: url })
+        //             }).then(() => {
+        //                 console.log("✅ URL sent to server: " + url);
+        //             }).catch(err => {
+        //                 console.error("❌ Failed to send URL:", err);
+        //             });
+        //         });
+        //     });
+        // });
+        /* HARD STOP: remove ALL existing handlers, then attach ONE */
+        $(document).off("click.external");
+
+        /* Single, authoritative handler */
+        $(document).on("click.external", "a.external-link", function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            var url = this.getAttribute("href");
+            if (!url) return;
+
+            // SINGLE open path
+            window.open(url, "_blank", "noopener,noreferrer");
+        });
+
+
+        function uuidToBytes(uuid) {
+            const hex = uuid.replace(/-/g, '');
+            const bytes = new Uint8Array(16);
+            for (let i = 0; i < 16; i++) {
+                bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+            }
+            return bytes;
+        }
+
+        function uuidToDotNetBytes(uuid) {
+            const hex = uuid.replace(/-/g, '').toLowerCase();
+            const bytes = new Uint8Array(16);
+
+            bytes[0] = parseInt(hex.substr(6, 2), 16);
+            bytes[1] = parseInt(hex.substr(4, 2), 16);
+            bytes[2] = parseInt(hex.substr(2, 2), 16);
+            bytes[3] = parseInt(hex.substr(0, 2), 16);
+
+            bytes[4] = parseInt(hex.substr(10, 2), 16);
+            bytes[5] = parseInt(hex.substr(8, 2), 16);
+
+            bytes[6] = parseInt(hex.substr(14, 2), 16);
+            bytes[7] = parseInt(hex.substr(12, 2), 16);
+
+            for (let i = 8; i < 16; i++) {
+                bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+            }
+
+            return bytes;
+        }
+
+        function byteArrayToGuid(byteArray) {
+            if (!Array.isArray(byteArray) || byteArray.length !== 16) return '';
+            const hex = Array.from(byteArray, b => ('0' + b.toString(16)).slice(-2));
+            return (
+                hex[3] + hex[2] + hex[1] + hex[0] + '-' +
+                hex[5] + hex[4] + '-' +
+                hex[7] + hex[6] + '-' +
+                hex[8] + hex[9] + '-' +
+                hex.slice(10).join('')
+            ).toUpperCase();
+        }
+
+        // Correct usage
+        // const accountID = "A3F8518A-7EBD-44D7-94B9-0E327C9CFC5C";
+        // const idBytes = uuidToBytes(accountID);
+
+        window.updateFooterText = function (dbName) {
+            const displayText = dbName || '(none)';
+            const element = document.getElementById('selectedDB');
+            if (element) {
+                element.textContent = 'Current DB: ' + displayText;
+                element.setAttribute('title', 'Current Database: ' + displayText);
+            }
+        };
+
+    </script>
+
+    <script nonce="@scriptNonce">
+        (function () {
+          function start() {
+            const canvasBody = document.getElementById('netcanvas');
+            if (!canvasBody) return; // no canvas on this page — just exit quietly
+
+            const drawArea = canvasBody.getContext('2d');
+
+            // ===== DIMENSIONS =====
+            let w = 0, h = 0;
+            const resizeReset = () => {
+              // prefer the rendered width so it matches your layout
+              const cssWidth = Math.max(canvasBody.clientWidth || 0, 1);
+              const maxWidth = 800; // your previous cap
+              w = canvasBody.width  = Math.min(cssWidth, maxWidth);
+              h = canvasBody.height = 70; // fixed rail height
+            };
+
+            // ===== OPTIONS (adjust to your existing values) =====
+            const opts = {
+              particleColor: "rgb(200,200,200)",
+              lineColor:     "rgb(200,200,200)",
+              particleAmount: 30,
+              defaultSpeed:   1,
+              variantSpeed:   1,
+              defaultRadius:  2,
+              variantRadius:  2,
+              linkRadius:     200
+            };
+            const rgb = opts.lineColor.match(/\d+/g);
+
+            // ===== PARTICLES =====
+            let particles = [];
+            function Particle() {
+              this.x = Math.random() * w;
+              this.y = Math.random() * h;
+              this.speed = opts.defaultSpeed + Math.random() * opts.variantSpeed;
+              this.directionAngle = Math.random() * 2 * Math.PI;
+              this.color = opts.particleColor;
+              this.radius = opts.defaultRadius + Math.random() * opts.variantRadius;
+              this.vector = { x: Math.cos(this.directionAngle) * this.speed,
+                              y: Math.sin(this.directionAngle) * this.speed };
+              this.update = function () {
+                // bounce
+                if (this.x >= w || this.x <= 0) this.vector.x *= -1;
+                if (this.y >= h || this.y <= 0) this.vector.y *= -1;
+                this.x += this.vector.x;
+                this.y += this.vector.y;
+              };
+              this.draw = function () {
+                drawArea.beginPath();
+                drawArea.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                drawArea.closePath();
+                drawArea.fillStyle = this.color;
+                drawArea.fill();
+              };
+            }
+
+            function checkDistance(x1, y1, x2, y2) {
+              const dx = x2 - x1, dy = y2 - y1;
+              return Math.sqrt(dx*dx + dy*dy);
+            }
+            function linkPoints(p1, hubs) {
+              for (let i = 0; i < hubs.length; i++) {
+                const dist = checkDistance(p1.x, p1.y, hubs[i].x, hubs[i].y);
+                const opacity = 1 - dist / opts.linkRadius;
+                if (opacity > 0) {
+                  drawArea.lineWidth = 0.5;
+                  drawArea.strokeStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${opacity})`;
+                  drawArea.beginPath();
+                  drawArea.moveTo(p1.x, p1.y);
+                  drawArea.lineTo(hubs[i].x, hubs[i].y);
+                  drawArea.stroke();
+                }
+              }
+            }
+
+            function setup() {
+              particles = [];
+              for (let i = 0; i < opts.particleAmount; i++) particles.push(new Particle());
+            }
+
+            function loop() {
+              requestAnimationFrame(loop);
+              drawArea.clearRect(0, 0, w, h);
+              for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+              }
+              for (let i = 0; i < particles.length; i++) linkPoints(particles[i], particles);
+            }
+
+            // init + safe resize
+            resizeReset();
+            setup();
+            loop();
+
+            let t;
+            window.addEventListener('resize', () => {
+              clearTimeout(t);
+              t = setTimeout(() => {
+                resizeReset();
+                setup(); // regenerate within new bounds so it never “disappears”
+              }, 100);
+            });
+          }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', start);
+          } else {
+            start();
+          }
+        })();
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <style>
+        /* Light theme navbar */
+        body.light-theme header .navbar {
+            background-color: #ffffff !important;
+            color: #212529;
+        }
+
+            body.light-theme header .navbar .nav-link,
+            body.light-theme header .navbar .navbar-brand {
+                color: #212529 !important;
+            }
+
+            body.light-theme header .navbar .dropdown-menu {
+                background-color: #ffffff;
+                color: #212529;
+            }
+
+            body.light-theme header .navbar .dropdown-item {
+                color: #212529;
+            }
+
+                body.light-theme header .navbar .dropdown-item:hover {
+                    background-color: #f1f1f1;
+                }
+
+        /* Dark theme navbar */
+        body.dark-theme header .navbar,
+        body.dark-theme header .navbar.bg-white {
+            background-color: #121212 !important;
+            color: #f8f9fa;
+            border-bottom-color: #333 !important;
+        }
+
+            body.dark-theme header .navbar .nav-link,
+            body.dark-theme header .navbar .navbar-brand {
+                color: #f8f9fa !important;
+            }
+
+                /* Override Bootstrap text-dark when in dark theme */
+                body.dark-theme header .navbar .nav-link.text-dark {
+                    color: #f8f9fa !important;
+                }
+
+            /* Special case for inline darkred link in dark mode */
+            body.dark-theme header .navbar a[style*="color: darkred"] {
+                color: #ff6b6b !important;
+            }
+
+            body.dark-theme header .navbar .dropdown-menu {
+                background-color: #1e1e1e;
+                color: #f8f9fa;
+                border-color: #333;
+            }
+
+            body.dark-theme header .navbar .dropdown-item {
+                color: #f8f9fa;
+            }
+
+                body.dark-theme header .navbar .dropdown-item:hover {
+                    background-color: #333333;
+                }
+
+            /* Toggler visibility in dark mode */
+            body.dark-theme header .navbar .navbar-toggler {
+                border-color: #f8f9fa;
+            }
+
+            body.dark-theme header .navbar .navbar-toggler-icon {
+                filter: invert(1);
+            }
+
+        /* Smooth transition */
+        header .navbar {
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+            header .navbar .nav-link,
+            header .navbar .navbar-brand {
+                transition: color 0.25s ease;
+            }
+
+        /* ✅ Global theme styles */
+
+        /* Default light theme */
+        body.light-theme {
+            background-color: #ffffff;
+            color: #212529;
+        }
+
+        /* Dark theme */
+        body.dark-theme {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        /* Bootstrap elements adapt */
+        .dark-theme .card,
+        .dark-theme .modal-content {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border-color: #333;
+        }
+
+        .light-theme .card,
+        .light-theme .modal-content {
+            background-color: #ffffff;
+            color: #212529;
+        }
+
+        .dark-theme .btn {
+            color: #e0e0e0;
+        }
+
+        .dark-theme .btn-outline-secondary {
+            border-color: #aaa;
+        }
+
+        .light-theme .btn-outline-secondary {
+            border-color: #444;
+        }
+
+        /* ✅ Navbar adapts to theme with stronger gradients and drop shadow */
+        body.dark-theme .navbar {
+            background: linear-gradient(to bottom, #3a3a3a 0%, #000000 100%) !important;
+            color: #f8f9fa !important;
+            border-bottom: 1px solid #222 !important;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35); /* toned-down shadow for dark mode */
+        }
+
+        body.light-theme .navbar {
+            background: linear-gradient(to bottom, #ffffff 0%, #dcdcdc 100%) !important;
+            color: #212529 !important;
+            border-bottom: 1px solid #ccc !important;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* softer shadow for light mode */
+        }
+
+        /* ✅ Nav link colors */
+        body.dark-theme .navbar .nav-link {
+            color: #f8f9fa !important;
+        }
+
+        body.light-theme .navbar .nav-link {
+            color: #212529 !important;
+        }
+
+        /* ✅ Hover effects for contrast */
+        body.dark-theme .navbar .nav-link:hover {
+            color: #ffffff !important;
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
+        }
+
+        body.light-theme .navbar .nav-link:hover {
+            color: #000000 !important;
+            text-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ✅ Footer adapts to theme with matching gradients and shadow */
+
+        /* Dark mode footer: stronger gradient + top shadow */
+        body.dark-theme footer,
+        body.dark-theme .footer {
+            background: linear-gradient(to bottom, #3a3a3a 0%, #000000 100%) !important;
+            color: #f8f9fa !important;
+            border-top: 1px solid #222 !important;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.6); /* shadow upward from footer */
+        }
+
+        /* Light mode footer: soft gradient + top shadow */
+        body.light-theme footer,
+        body.light-theme .footer {
+            background: linear-gradient(to bottom, #ffffff 0%, #dcdcdc 100%) !important;
+            color: #212529 !important;
+            border-top: 1px solid #ccc !important;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.25); /* softer shadow */
+        }
+
+        /* Optional: footer links */
+        body.dark-theme footer a,
+        body.dark-theme .footer a {
+            color: #f8f9fa !important;
+        }
+
+        body.light-theme footer a,
+        body.light-theme .footer a {
+            color: #212529 !important;
+        }
+
+        body.dark-theme footer a:hover,
+        body.dark-theme .footer a:hover {
+            color: #ffffff !important;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.35);
+        }
+
+        body.light-theme footer a:hover,
+        body.light-theme .footer a:hover {
+            color: #000000 !important;
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Light theme: keep dark shadow for normal look */
+        .light-theme .shadow {
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        /* Dark theme: switch Bootstrap .shadow to white glow */
+        .dark-theme .shadow {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 6px 16px rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .shadow .bottom_shadow_full {
+            float: left;
+            position: relative;
+            height: 64px !important;
+            bottom: 0;
+            margin-bottom: 0px;
+            top: 4px !important;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* default fallback */
+        }
+
+        /* Light theme: darker gray shadow for depth */
+        .light-theme .shadow .bottom_shadow_full {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Dark theme: softer outer white glow for contrast */
+        .dark-theme .shadow .bottom_shadow_full {
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.18), /* soft inner glow */
+            0 6px 14px rgba(255, 255, 255, 0.22); /* visible outer glow */
+        }
+
+    </style>
+
+
+</body>
+</html>

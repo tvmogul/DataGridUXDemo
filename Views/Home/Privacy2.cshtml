@@ -1,0 +1,451 @@
+﻿@{
+    // Html.RenderPartial("_jwt_token_check");
+    ViewData["Title"] = "AI Productivity Tools";
+    var scriptNonce = Html.ScriptNonce();
+    //var styleNonce = Html.StyleNonce();
+}
+
+<h1 style="text-align:center;">@ViewData["Title"]</h1>
+
+<div class="container py-1">
+
+    <div class="row g-3">
+
+        <!-- AI Chatbots -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Chatbots</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddChatbots" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddChatbots">
+                            <li><a class="dropdown-item" href="https://chat.openai.com/" target="_blank" rel="noopener">ChatGPT</a></li>
+                            <li><a class="dropdown-item" href="https://claude.ai/" target="_blank" rel="noopener">Claude</a></li>
+                            <li><a class="dropdown-item" href="https://www.deepseek.com/" target="_blank" rel="noopener">DeepSeek</a></li>
+                            <li><a class="dropdown-item" href="https://gemini.google.com/" target="_blank" rel="noopener">Gemini</a></li>
+                            <li><a class="dropdown-item" href="https://x.ai/" target="_blank" rel="noopener">Grok</a></li>
+                            <li><a class="dropdown-item" href="https://ai.meta.com/" target="_blank" rel="noopener">Meta AI</a></li>
+                            <li><a class="dropdown-item" href="https://copilot.microsoft.com/" target="_blank" rel="noopener">MS Copilot</a></li>
+                            <li><a class="dropdown-item" href="https://www.perplexity.ai/" target="_blank" rel="noopener">Perplexity</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Presentation -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Presentation</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddPresentation" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddPresentation">
+                            <li><a class="dropdown-item" href="https://www.beautiful.ai/" target="_blank" rel="noopener">Beautiful.ai</a></li>
+                            <li><a class="dropdown-item" href="https://gamma.app/" target="_blank" rel="noopener">Gamma</a></li>
+                            <li><a class="dropdown-item" href="https://pitch.com/" target="_blank" rel="noopener">Pitch</a></li>
+                            <li><a class="dropdown-item" href="https://www.plusdocs.com/" target="_blank" rel="noopener">Plus</a></li>
+                            <li><a class="dropdown-item" href="https://www.popai.pro/" target="_blank" rel="noopener">PopAI</a></li>
+                            <li><a class="dropdown-item" href="https://presentation.ai/" target="_blank" rel="noopener">Presentation.ai</a></li>
+                            <li><a class="dropdown-item" href="https://slidesgo.com/" target="_blank" rel="noopener">Slidesgo</a></li>
+                            <li><a class="dropdown-item" href="https://tome.app/" target="_blank" rel="noopener">Tome</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Coding Assistance -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Coding Assistance</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddCoding" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddCoding">
+                            <li><a class="dropdown-item" href="https://www.askcodi.com/" target="_blank" rel="noopener">AskCodi</a></li>
+                            <li><a class="dropdown-item" href="https://www.codiga.io/" target="_blank" rel="noopener">Codiga</a></li>
+                            <li><a class="dropdown-item" href="https://cursor.com/" target="_blank" rel="noopener">Cursor</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/features/copilot" target="_blank" rel="noopener">GitHub Copilot</a></li>
+                            <li><a class="dropdown-item" href="https://www.qodo.ai/" target="_blank" rel="noopener">Qodo</a></li>
+                            <li><a class="dropdown-item" href="https://replit.com/" target="_blank" rel="noopener">Replit</a></li>
+                            <li><a class="dropdown-item" href="https://www.tabnine.com/" target="_blank" rel="noopener">Tabnine</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Email Assistance -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Email Assistance</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddEmail" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddEmail">
+                            <li><a class="dropdown-item" href="https://clipit.ai/" target="_blank" rel="noopener">Clipit.ai</a></li>
+                            <li><a class="dropdown-item" href="https://friday.app/" target="_blank" rel="noopener">Friday</a></li>
+                            <li><a class="dropdown-item" href="https://www.mailmaestro.ai/" target="_blank" rel="noopener">MailMaestro</a></li>
+                            <li><a class="dropdown-item" href="https://www.shortwave.com/" target="_blank" rel="noopener">Shortwave</a></li>
+                            <li><a class="dropdown-item" href="https://superhuman.com/" target="_blank" rel="noopener">Superhuman</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Image Generation -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Image Generation</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddImages" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddImages">
+                            <li><a class="dropdown-item" href="https://firefly.adobe.com/" target="_blank" rel="noopener">Adobe Firefly</a></li>
+                            <li><a class="dropdown-item" href="https://openai.com/dall-e" target="_blank" rel="noopener">DALL·E</a></li>
+                            <li><a class="dropdown-item" href="https://blackforestlabs.ai/" target="_blank" rel="noopener">FLUX.1</a></li>
+                            <li><a class="dropdown-item" href="https://ideogram.ai/" target="_blank" rel="noopener">Ideogram</a></li>
+                            <li><a class="dropdown-item" href="https://www.midjourney.com/" target="_blank" rel="noopener">Midjourney</a></li>
+                            <li><a class="dropdown-item" href="https://www.recraft.ai/" target="_blank" rel="noopener">Recraft</a></li>
+                            <li><a class="dropdown-item" href="https://stability.ai/" target="_blank" rel="noopener">Stable Diffusion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Spreadsheet -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Spreadsheet</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddSpreadsheet" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddSpreadsheet">
+                            <li><a class="dropdown-item" href="https://www.thebricks.com/" target="_blank" rel="noopener">Bricks</a></li>
+                            <li><a class="dropdown-item" href="https://formulabot.com/" target="_blank" rel="noopener">Formula Bot</a></li>
+                            <li><a class="dropdown-item" href="https://www.gigasheet.com/" target="_blank" rel="noopener">Gigasheet</a></li>
+                            <li><a class="dropdown-item" href="https://rows.com/" target="_blank" rel="noopener">Rows AI</a></li>
+                            <li><a class="dropdown-item" href="https://sheetai.app/" target="_blank" rel="noopener">SheetAI</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Meeting Notes -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Meeting Notes</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddMeeting" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddMeeting">
+                            <li><a class="dropdown-item" href="https://www.avoma.com/" target="_blank" rel="noopener">Avoma</a></li>
+                            <li><a class="dropdown-item" href="https://www.equaltime.com/" target="_blank" rel="noopener">Equal Time</a></li>
+                            <li><a class="dropdown-item" href="https://fathom.video/" target="_blank" rel="noopener">Fathom</a></li>
+                            <li><a class="dropdown-item" href="https://fellow.app/" target="_blank" rel="noopener">Fellow.app</a></li>
+                            <li><a class="dropdown-item" href="https://fireflies.ai/" target="_blank" rel="noopener">Fireflies</a></li>
+                            <li><a class="dropdown-item" href="https://krisp.ai/" target="_blank" rel="noopener">Krisp</a></li>
+                            <li><a class="dropdown-item" href="https://otter.ai/" target="_blank" rel="noopener">Otter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Workflow Automation -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Workflow Automation</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddWorkflow" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddWorkflow">
+                            <li><a class="dropdown-item" href="https://integrately.com/" target="_blank" rel="noopener">Integrately</a></li>
+                            <li><a class="dropdown-item" href="https://www.make.com/" target="_blank" rel="noopener">Make</a></li>
+                            <li><a class="dropdown-item" href="https://monday.com/" target="_blank" rel="noopener">Monday.com</a></li>
+                            <li><a class="dropdown-item" href="https://n8n.io/" target="_blank" rel="noopener">n8n</a></li>
+                            <li><a class="dropdown-item" href="https://www.wrike.com/" target="_blank" rel="noopener">Wrike</a></li>
+                            <li><a class="dropdown-item" href="https://zapier.com/" target="_blank" rel="noopener">Zapier</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Writing Generation -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Writing Generation</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddWriting" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddWriting">
+                            <li><a class="dropdown-item" href="https://www.copy.ai/" target="_blank" rel="noopener">Copy.ai</a></li>
+                            <li><a class="dropdown-item" href="https://www.grammarly.com/" target="_blank" rel="noopener">Grammarly</a></li>
+                            <li><a class="dropdown-item" href="https://www.jasper.ai/" target="_blank" rel="noopener">Jasper</a></li>
+                            <li><a class="dropdown-item" href="https://jotbot.ai/" target="_blank" rel="noopener">JotBot</a></li>
+                            <li><a class="dropdown-item" href="https://quillbot.com/" target="_blank" rel="noopener">Quillbot</a></li>
+                            <li><a class="dropdown-item" href="https://rytr.me/" target="_blank" rel="noopener">Rytr</a></li>
+                            <li><a class="dropdown-item" href="https://www.sudowrite.com/" target="_blank" rel="noopener">Sudowrite</a></li>
+                            <li><a class="dropdown-item" href="https://writesonic.com/" target="_blank" rel="noopener">Writesonic</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Scheduling -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Scheduling</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddScheduling" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddScheduling">
+                            <li><a class="dropdown-item" href="https://calendly.com/" target="_blank" rel="noopener">Calendly</a></li>
+                            <li><a class="dropdown-item" href="https://www.getclockwise.com/" target="_blank" rel="noopener">Clockwise</a></li>
+                            <li><a class="dropdown-item" href="https://www.usemotion.com/" target="_blank" rel="noopener">Motion</a></li>
+                            <li><a class="dropdown-item" href="https://reclaim.ai/" target="_blank" rel="noopener">Reclaim AI</a></li>
+                            <li><a class="dropdown-item" href="https://www.taskade.com/" target="_blank" rel="noopener">Taskade</a></li>
+                            <li><a class="dropdown-item" href="https://www.trevorai.com/" target="_blank" rel="noopener">Trevor AI</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Knowledge Management -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Knowledge Management</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddKnowledge" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddKnowledge">
+                            <li><a class="dropdown-item" href="https://mem.ai/" target="_blank" rel="noopener">Mem</a></li>
+                            <li><a class="dropdown-item" href="https://www.notion.so/" target="_blank" rel="noopener">Notion</a></li>
+                            <li><a class="dropdown-item" href="https://tettra.com/" target="_blank" rel="noopener">Tettra</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Video Generation -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Video Generation</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddVideo" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddVideo">
+                            <li><a class="dropdown-item" href="https://www.descript.com/" target="_blank" rel="noopener">Descript</a></li>
+                            <li><a class="dropdown-item" href="https://www.haiper.ai/" target="_blank" rel="noopener">Haiper AI</a></li>
+                            <li><a class="dropdown-item" href="https://invideo.io/ai/" target="_blank" rel="noopener">InVideo AI</a></li>
+                            <li><a class="dropdown-item" href="https://klingai.com/" target="_blank" rel="noopener">Kling</a></li>
+                            <li><a class="dropdown-item" href="https://www.krea.ai/" target="_blank" rel="noopener">Krea AI</a></li>
+                            <li><a class="dropdown-item" href="https://ltx.studio/" target="_blank" rel="noopener">LTX Studio</a></li>
+                            <li><a class="dropdown-item" href="https://lumalabs.ai/" target="_blank" rel="noopener">Luma AI</a></li>
+                            <li><a class="dropdown-item" href="https://pika.art/" target="_blank" rel="noopener">Pika AI</a></li>
+                            <li><a class="dropdown-item" href="https://runwayml.com/" target="_blank" rel="noopener">Runway</a></li>
+                            <li><a class="dropdown-item" href="https://openai.com/sora" target="_blank" rel="noopener">Sora</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Graphic Design -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Graphic Design</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddDesign" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddDesign">
+                            <li><a class="dropdown-item" href="https://www.autodraw.com/" target="_blank" rel="noopener">AutoDraw</a></li>
+                            <li><a class="dropdown-item" href="https://www.canva.com/" target="_blank" rel="noopener">Canva</a></li>
+                            <li><a class="dropdown-item" href="https://www.design.com/" target="_blank" rel="noopener">Design.com</a></li>
+                            <li><a class="dropdown-item" href="https://www.framer.com/" target="_blank" rel="noopener">Framer</a></li>
+                            <li><a class="dropdown-item" href="https://designer.microsoft.com/" target="_blank" rel="noopener">Microsoft Designer</a></li>
+                            <li><a class="dropdown-item" href="https://uizard.io/" target="_blank" rel="noopener">Uizard</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Data Visualization -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">AI Data Visualization</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddViz" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddViz">
+                            <li><a class="dropdown-item" href="https://deckpilot.io/" target="_blank" rel="noopener">Deckpilot</a></li>
+                            <li><a class="dropdown-item" href="https://flourish.studio/" target="_blank" rel="noopener">Flourish</a></li>
+                            <li><a class="dropdown-item" href="https://julius.ai/" target="_blank" rel="noopener">Julius</a></li>
+                            <li><a class="dropdown-item" href="https://www.visme.co/" target="_blank" rel="noopener">Visme</a></li>
+                            <li><a class="dropdown-item" href="https://www.zingdata.com/" target="_blank" rel="noopener">Zing Data</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI NO Data and NO Training -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card tool-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Zero-Training AI (New AI)</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100" type="button"
+                                id="ddViz" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select a tool
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="ddViz">
+                            <li><a class="dropdown-item" href="https://ainodata.com/" target="_blank" rel="noopener">Zero-Training AI™</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/tvmogul/AiNoData" target="_blank" rel="noopener">GitHub Project</a></li>
+                            <li><a class="dropdown-item" href="https://www.youtube.com/watch?v=7_3RRghur1k" target="_blank" rel="noopener">YouTube Video</a></li>
+                            <li><a class="dropdown-item" href="https://www.linkedin.com/pulse/zero-training-ai-without-data-training-bill-sergio-6ouce/?trackingId=b%2Fe5fRbSQRyL2JtYvGYbnQ%3D%3D" target="_blank" rel="noopener">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+@section Scripts {
+
+    <script nonce="@scriptNonce">
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+        // ✅ Ensure global theme is applied on this view based on saved preference
+        (function initGlobalTheme() {
+            localStorage.setItem('bankLetterFilter', 'A');
+            try {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+
+                if (savedTheme === 'dark') {
+                    document.body.classList.remove('light-theme');
+                    document.body.classList.add('dark-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'dark'); // Bootstrap 5.3.3 global theme
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    document.body.classList.add('light-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'light'); // Bootstrap 5.3.3 global theme
+                }
+            } catch (e) {
+                console.warn('Theme init failed on Welcome view:', e);
+            }
+        })();
+
+    </script>
+
+}
+
+<style>
+    body {
+        background: #f5f5f5;
+    }
+
+    .tool-card {
+        border: 1px solid rgba(0,0,0,.08);
+    }
+
+    .dropdown-menu {
+        max-height: 320px;
+        overflow: auto;
+    }
+</style>
+
+<style>
+    /* === Compact dropdowns for AI tools page ONLY === */
+
+    /* Dropdown menu container */
+    .tool-card .dropdown-menu {
+        font-size: 0.8rem; /* smaller text */
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+
+    /* Individual dropdown items */
+    .tool-card .dropdown-item {
+        padding: 0.25rem 0.75rem; /* reduce row height */
+        line-height: 1.2;
+    }
+
+    /* Dropdown button itself */
+    .tool-card .dropdown-toggle {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.6rem;
+    }
+
+    /* Optional: tighten hover/focus feel */
+    .tool-card .dropdown-item:hover,
+    .tool-card .dropdown-item:focus {
+        padding-left: 0.75rem;
+    }
+
+</style>

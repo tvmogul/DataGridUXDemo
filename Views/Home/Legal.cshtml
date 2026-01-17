@@ -1,0 +1,196 @@
+﻿@{
+    // Html.RenderPartial("_jwt_token_check");
+    ViewData["Title"] = "Legal";
+    // var scriptNonce = Html.ScriptNonce();
+    //var styleNonce = Html.StyleNonce();
+}
+
+<section class="container mt-4" style="max-width: 900px;">
+
+    <h1>Legal Information</h1>
+
+    <p>
+        This page contains the complete legal terms governing the use of the
+        <strong>AiNetProfit®</strong> software application, associated services,
+        and any related websites operated by <strong>Ouslan, Inc.</strong>
+    </p>
+
+    <hr />
+
+    <h2>Acceptance of Terms</h2>
+    <p>
+        By accessing, installing, using, or interacting with the AiNetProfit®
+        application or any related website or service, you acknowledge that you
+        have read, understood, and agree to be bound by these terms, conditions,
+        notices, and disclaimers. If you do not agree, you must discontinue use
+        immediately.
+    </p>
+
+    <hr />
+
+    <h2>License Grant</h2>
+    <p>
+        AiNetProfit® is a proprietary, commercial software product offered for
+        sale under license by <strong>Ouslan, Inc.</strong> Subject to payment of
+        applicable fees and compliance with these terms, Ouslan, Inc. grants you
+        a limited, non-exclusive, non-transferable, revocable license to use the
+        Software solely for its intended purpose.
+    </p>
+
+    <p>
+        You may not copy, modify, distribute, sublicense, reverse engineer,
+        decompile, disassemble, or create derivative works of the Software except
+        as expressly permitted by a written license agreement executed by
+        Ouslan, Inc.
+    </p>
+
+    <hr />
+
+    <h2>Intellectual Property</h2>
+    <p>
+        All software, source code, algorithms, designs, user interfaces,
+        documentation, trademarks, trade secrets, and related materials are the
+        exclusive intellectual property of <strong>Ouslan, Inc.</strong> and are
+        protected by United States and international intellectual property laws.
+    </p>
+
+    <p>
+        <strong>AiNetProfit®</strong> is a registered trademark of Ouslan, Inc.
+        All other marks are the property of their respective owners.
+    </p>
+
+    <hr />
+
+    <h2>Privacy</h2>
+    <p>
+        Ouslan, Inc. respects user privacy. Information collected through the
+        application or associated websites is used solely for providing,
+        operating, securing, and improving the Software, unless otherwise
+        disclosed at the point of collection.
+    </p>
+
+    <p>
+        Ouslan, Inc. does not sell personal information. Limited technical or
+        usage data may be collected for operational, security, or compliance
+        purposes.
+    </p>
+
+    <hr />
+
+    <h2>Cookies</h2>
+    <p>
+        Associated websites may use cookies or similar technologies for session
+        management, authentication, preferences, analytics, and security.
+        Disabling cookies may affect functionality.
+    </p>
+
+    <hr />
+
+    <h2>Disclaimers</h2>
+    <p>
+        The Software and any related website content are provided for
+        informational and demonstration purposes only and do not constitute
+        legal, financial, medical, investment, or professional advice.
+    </p>
+
+    <p>
+        The Software is provided <strong>“AS IS”</strong> and
+        <strong>“AS AVAILABLE”</strong>, without warranties of any kind, whether
+        express, implied, or statutory.
+    </p>
+
+    <hr />
+
+    <h2>Limitation of Liability</h2>
+    <p>
+        To the maximum extent permitted by law, <strong>Ouslan, Inc.</strong>
+        shall not be liable for any direct, indirect, incidental, special,
+        consequential, or exemplary damages arising out of or related to the use
+        of, or inability to use, the Software or any related service.
+    </p>
+
+    <hr />
+
+    <h2>Regulatory Use</h2>
+    <p>
+        The Software is not designed or certified for use in safety-critical,
+        life-critical, or regulated environments unless explicitly stated
+        otherwise in writing by Ouslan, Inc.
+    </p>
+
+    <hr />
+
+    <h2>Governing Law and Venue</h2>
+    <p>
+        These terms shall be governed by and construed in accordance with the
+        laws of the <strong>State of Florida</strong>, without regard to
+        conflict-of-law principles.
+    </p>
+
+    <p>
+        Any legal action or proceeding arising out of or relating to the
+        Software shall be brought exclusively in the state or federal courts
+        located within <strong>Miami Dade County, FL</strong>, and you consent
+        to personal jurisdiction therein.
+    </p>
+
+    <hr />
+
+    <h2>Changes to Terms</h2>
+    <p>
+        Ouslan, Inc. reserves the right to modify these terms at any time.
+        Continued use of the Software after changes become effective constitutes
+        acceptance of the revised terms.
+    </p>
+
+    <p>
+        <strong>© 1991 - 2026 Ouslan, Inc. All rights reserved world wide.</strong>
+    </p>
+
+</section>
+
+
+@section Scripts {
+
+    @*     <script nonce="@scriptNonce">
+
+        document.addEventListener("DOMContentLoaded", function () {
+            //alert("$(document).ready Loads First!");
+
+        });
+
+    </script>
+
+    <script nonce="@scriptNonce">
+        // ✅ Ensure global theme is applied on this view based on saved preference
+        (function initGlobalTheme() {
+            localStorage.setItem('bankLetterFilter', 'A');
+            try {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+
+                if (savedTheme === 'dark') {
+                    document.body.classList.remove('light-theme');
+                    document.body.classList.add('dark-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'dark'); // Bootstrap 5.3.3 global theme
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    document.body.classList.add('light-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'light'); // Bootstrap 5.3.3 global theme
+                }
+            } catch (e) {
+                console.warn('Theme init failed on Welcome view:', e);
+            }
+        })();
+    </script> *@
+
+}
+
+<style>
+
+</style>
+
+
+
+
+
+

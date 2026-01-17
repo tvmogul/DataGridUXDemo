@@ -1,0 +1,338 @@
+﻿<style>
+    .splash-modal-content {
+        background-image: url('/img/bg_blackbrains.gif');
+        background-size: cover;
+        background-position: center;
+        border-radius: 15px;
+        border: 2px solid white;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        min-height: 280px;
+        padding: 10px;
+        height: 280px; /* fixed height updated for 16:9 aspect ratio */
+        overflow-y: auto; /* scroll if content exceeds */
+    }
+
+    .splash-modal-content {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .splash-modal-dialog {
+        width: 90%;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @@media (min-width: 768px) {
+        .splash-modal-dialog {
+            max-width: 480px;
+        }
+    }
+
+    @@media (min-width: 992px) {
+        .splash-modal-dialog {
+            max-width: 480px;
+        }
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    p {
+        line-height: .8;
+    }
+
+    .form-label {
+        color: white !important;
+        font-size: 1.4em !important;
+    }
+
+    .same-width {
+        width: 280px;
+        margin: 0 auto;
+        display: block;
+        font-size: 0.9rem;
+    }
+
+    .btn-sky-gradient {
+        background: linear-gradient(to bottom right, #e6f7ff, #ccf2ff);
+        border: 1px solid #b3e0ff;
+        color: #004466;
+        font-weight: 500;
+    }
+
+        .btn-sky-gradient:hover {
+            background: linear-gradient(to bottom right, #d9f0ff, #b3eaff);
+            border-color: #99d6ff;
+            color: #003344;
+        }
+
+    #splashText {
+        font-weight: bold !important;
+    }
+
+    /* .modal-backdrop.show {
+                    background-color: rgba(0, 0, 0, 0.8) !important;
+                } */
+
+</style>
+
+<!-- _SplashModal.cshtml -->
+<div id="splashModalWrapper" style="display: none;">
+    <div class="modal fade" id="splashModal" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered splash-modal-dialog">
+            <div class="modal-content splash-modal-content position-relative">
+                <div class="modal-body text-center text-white">
+                    <div id="splashImageContainer" class="my-4">
+                        <img id="splashImage" src="" alt="Splash" style="max-width: 100%; max-height: 250px;" />
+                    </div>
+
+                    <div style="padding-top: 70px !important; text-align: center !important; vertical-align: middle !important;">
+                        <div id="splashText" class="form-label text-center px-3" style="min-height: 80px;"></div>
+                    </div>
+
+                    <h3 class="fw-bold position-absolute" style="font-size: 0.9rem; bottom: 10px; left: 15px; margin: 0;">
+                        AiNetProfit<sup>®</sup>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const splashData = [
+        { img: '/img/bg_blackbrains.gif', text: 'Booting Predictive Neural AI Core' },
+        { img: '/img/bg_blackelectric.gif', text: 'Calibrating Synaptic Algorithms' },
+        { img: '/img/bk_redlines.gif', text: 'Engaging Deep Learning Protocols' },
+        { img: '/img/bk_deeplearning.gif', text: 'Ready to Maximize ROI' }
+    ];
+    // { img: '/img/sky.gif', text: 'Engaging Deep Learning Protocols' },
+
+    let splashIndex = 0;
+    let cycleTimeout;
+
+    if (typeof window.currentSplashModal === 'undefined') {
+        window.currentSplashModal = null;
+    }
+
+    function typeText(element, text, callback) {
+        if (!element) return;
+        element.innerHTML = '';
+        let index = 0;
+        function typeNext() {
+            if (index < text.length) {
+                if (text[index] === '\n') {
+                    element.innerHTML += '<br>';
+                } else {
+                    element.innerHTML += text[index];
+                }
+                index++;
+                setTimeout(typeNext, 50);
+            } else if (callback) {
+                callback();
+            }
+        }
+        typeNext();
+    }
+
+    function displaySlide(modalElement, index) {
+        if (!modalElement) return;
+        const data = splashData[index];
+        if (!data) return;
+
+        const { img, text } = data;
+        const contentEl = modalElement.querySelector('.splash-modal-content');
+        const textEl = modalElement.querySelector('#splashText');
+
+        if (!contentEl || !textEl) return;
+
+        contentEl.style.backgroundImage = `url('${img}')`;
+        contentEl.style.backgroundSize = 'cover';
+        contentEl.style.backgroundPosition = 'center';
+        contentEl.style.backgroundRepeat = 'no-repeat';
+
+        const imageEl = modalElement.querySelector('#splashImage');
+        if (imageEl) imageEl.remove();
+
+        typeText(textEl, text);
+    }
+
+    function hookModalEvents(modalElement) {
+        if (!modalElement) return;
+        splashIndex = 0;
+
+        const showNext = () => {
+            if (splashIndex < splashData.length) {
+                displaySlide(modalElement, splashIndex);
+                splashIndex++;
+                cycleTimeout = setTimeout(showNext, 5000);
+            } else {
+                const modal = bootstrap.Modal.getInstance(modalElement);
+                if (modal) modal.hide();
+            }
+        };
+
+        showNext();
+    }
+
+    function waitForElementById(id, timeout = 3000) {
+        return new Promise((resolve, reject) => {
+            const start = Date.now();
+            const timer = setInterval(() => {
+                const el = document.getElementById(id);
+                if (el) {
+                    clearInterval(timer);
+                    resolve(el);
+                } else if (Date.now() - start > timeout) {
+                    clearInterval(timer);
+                    reject();
+                }
+            }, 50);
+        });
+    }
+
+    async function showSplashModal() {
+        try {
+            const wrapper = await waitForElementById("splashModalWrapper");
+            if (!wrapper) return;
+
+            const modalHtml = wrapper.innerHTML;
+            if (!modalHtml) return;
+
+            const container = document.createElement("div");
+            container.innerHTML = modalHtml;
+            document.body.appendChild(container);
+
+            const modalElement = container.querySelector("#splashModal");
+            if (!modalElement || !window.bootstrap || !bootstrap.Modal) return;
+
+            window.currentSplashModal = new bootstrap.Modal(modalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            modalElement.addEventListener('shown.bs.modal', () => {
+                hookModalEvents(modalElement);
+                addStarsToSplash(modalElement);
+            }, { once: true });
+
+            window.currentSplashModal.show();
+        } catch (e) {
+            return;
+        }
+    }
+
+    function addStarsToSplash(modalElement) {
+        const contentEl = modalElement.querySelector('.splash-modal-content');
+        if (!contentEl) return;
+
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.zIndex = '1';
+        canvas.style.pointerEvents = 'none';
+
+        contentEl.appendChild(canvas);
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        function resizeCanvas() {
+            canvas.width = contentEl.clientWidth;
+            canvas.height = contentEl.clientHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let stars = [];
+
+        function createStar() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height * 0.5;
+            const length = Math.random() * 80 + 20;
+            const speed = Math.random() * 4 + 2;
+            stars.push({ x, y, length, speed });
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = "rgba(255,255,255,0.8)";
+            ctx.lineWidth = 1.5;
+
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.moveTo(star.x, star.y);
+                ctx.lineTo(star.x + star.length, star.y + star.length * 0.3);
+                ctx.stroke();
+
+                star.x += star.speed;
+                star.y += star.speed * 0.3;
+            });
+
+            stars = stars.filter(s => s.x < canvas.width && s.y < canvas.height);
+            if (Math.random() < 0.2) createStar();
+
+            requestAnimationFrame(animateStars);
+        }
+
+        animateStars();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Hide all pop-ups initially
+        document.querySelectorAll('.pop-up').forEach(el => {
+            el.style.display = 'none';
+        });
+
+        // Fade in effect
+        document.querySelectorAll('.pop-up').forEach(el => {
+            el.style.opacity = 0;
+            el.style.display = 'block';
+            let opacity = 0;
+            const fadeIn = setInterval(() => {
+                opacity += 0.05;
+                el.style.opacity = opacity;
+                if (opacity >= 1) clearInterval(fadeIn);
+            }, 50); // ~1000ms total
+        });
+
+        // Close button click handler
+        document.querySelectorAll('.close-button').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                document.querySelectorAll('.pop-up').forEach(el => {
+                    let opacity = 1;
+                    const fadeOut = setInterval(() => {
+                        opacity -= 0.07;
+                        el.style.opacity = opacity;
+                        if (opacity <= 0) {
+                            el.style.display = 'none';
+                            clearInterval(fadeOut);
+                        }
+                    }, 50); // ~700ms total
+                });
+
+                const overlay = document.getElementById('overlay');
+                if (overlay) {
+                    overlay.classList.remove('blur-in');
+                    overlay.classList.add('blur-out');
+                }
+
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
