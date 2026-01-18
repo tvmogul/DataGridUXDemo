@@ -1,7 +1,7 @@
-﻿@{
-    // Html.RenderPartial("_jwt_token_check");
-    ViewData["Title"] = "JQuery DataTable Demo";
-    var scriptNonce = Html.ScriptNonce();
+﻿﻿@{
+// Html.RenderPartial("_jwt_token_check");
+ViewData["Title"] = "JQuery DataTable Demo";
+var scriptNonce = Html.ScriptNonce();
     //var styleNonce = Html.StyleNonce();
 }
 
@@ -28,6 +28,22 @@
     </div>
 </div>
 
+<div id="viewportInfo" style="text-align:center;font-size:12px;margin-bottom:6px;">
+    Viewport: <span id="vw"></span> px
+</div>
+@* <div style="text-align:center;margin-bottom:8px;">
+    <label style="margin-right:6px;">Test wrapper width:</label>
+    <select id="widthTester">
+        <option value="">Auto (responsive)</option>
+        <option value="1400">1400px (Large Desktop)</option>
+        <option value="1280">1280px (Desktop)</option>
+        <option value="1100">1100px (Laptop)</option>
+        <option value="900">900px (Tablet)</option>
+        <option value="700">700px (Phone)</option>
+    </select>
+</div> *@
+
+
 <!-- Group Bar (placeholder for future drag-to-group logic) -->
 <div id="groupZone" class="drop-zone">
     Drag column headers here to group
@@ -52,7 +68,7 @@
 
 <br />
 
-<div id="stationsTable_wrapper" class="mx-auto" style="width:84%;">
+<div id="stationsTableHost">
     <table id="stationsTable" class="display stripe hover dt-header-light" style="width:100%">
         <thead>
             <tr>
@@ -321,9 +337,17 @@
                     });
 
                     $('#stationsTable tbody tr:not(.group-row)').hide();
-                }
 
+                    if (groupedColumnIndex === null) return;
+                        /* unchanged */
+                    }
             });
+
+            setTimeout(function () {
+                table.columns.adjust().draw(false);
+            }, 0);
+
+
 
             $('#groupZone').appendTo('.group-zone-holder');
             $('#groupLegend').appendTo('.group-zone-holder');
@@ -417,6 +441,10 @@
                 }
             });
 
+            // window.addEventListener('resize', function () {
+            //     window.location.reload();
+            // });
+
         });
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -468,8 +496,51 @@
 
     </script>
 
+    <script nonce="@scriptNonce">
+        function updateViewportWidth() {
+            document.getElementById("vw").textContent = window.innerWidth;
+        }
+
+        window.addEventListener("resize", updateViewportWidth);
+        document.addEventListener("DOMContentLoaded", updateViewportWidth);
+    </script>
+
+@*  <script nonce="@scriptNonce">
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const wrapper = document.getElementById("stationsTable_wrapper");
+            const tester = document.getElementById("widthTester");
+
+            tester.addEventListener("change", function () {
+                if (!this.value) {
+                    // Reset to responsive behavior
+                    wrapper.style.width = "";
+                    wrapper.style.maxWidth = "";
+                } else {
+                    wrapper.style.width = this.value + "px";
+                    wrapper.style.maxWidth = this.value + "px";
+                }
+            });
+
+            // 🔑 REQUIRED
+            $('#stationsTable').DataTable().columns.adjust();
+
+        });
+    </script> *@
+
 
 }
+
+<style>
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    #stationsTable {
+        width: 100% !important;
+    }
+</style>
 
 <style>
     .group-toggle {
@@ -500,7 +571,6 @@
         width: 120px;
     }
 </style>
-
 
 <style>
     #businessType {
@@ -572,9 +642,9 @@
     }
 
     /* Fixed header styling */
-    .th-fixed {
+/*     .th-fixed {
         white-space: nowrap; /* Prevent text from wrapping */
-    }
+    } */
 
     .btn-md-menu {
         font-size: 0.875rem !important;
@@ -648,14 +718,14 @@
     }
 
     /* #companyDropdownMenu::-webkit-scrollbar-track {
-                    background-color: white !important;
-                    } */
+                        background-color: white !important;
+                        } */
 
     /* Firefox */
     /* #companyDropdownMenu {
-                    scrollbar-width: thin;
-                    scrollbar-color: #999 transparent;
-                    } */
+                        scrollbar-width: thin;
+                        scrollbar-color: #999 transparent;
+                        } */
 
     .LegendLightGreen {
         background-color: LightGreen;
@@ -828,8 +898,6 @@
     }
 </style>
 
-
-
 <style>
 
     body.dark-theme table.dataTable tbody tr:hover:not(.selected) {
@@ -957,11 +1025,6 @@
         }
 </style>
 
-
-
-
-
-
 <style>
     /* Force DataTables sort icons to white */
     table#stationsTable.dt-header-dark thead th.sorting::before,
@@ -1080,8 +1143,8 @@
 <style>
 
     /* ====================================================
-       FINAL OVERRIDE – MUST BE LAST
-    ====================================================== */
+           FINAL OVERRIDE – MUST BE LAST
+        ====================================================== */
     table#stationsTable.dt-header-light thead tr {
         background: linear-gradient( 180deg, #ffffff 0%, #e6e6e6 35%, #c4c4c4 100% ) !important;
         color: #222 !important;
@@ -1099,8 +1162,8 @@
     }
 
     /* ====================================================
-           FIX: CENTER HEADER TEXT WITHOUT BREAKING ICONS
-        ====================================================== */
+               FIX: CENTER HEADER TEXT WITHOUT BREAKING ICONS
+            ====================================================== */
 
     /* Center header text only */
     table#stationsTable thead th {
@@ -1137,8 +1200,8 @@
 
 <style>
     /* ==============================
-           Group Legend – Light & Dark
-        ============================== */
+        Group Legend – Light & Dark
+    ============================== */
 
     /* Base (light theme – unchanged look) */
     .group-legend {
@@ -1163,8 +1226,8 @@
     }
 
     /* ==============================
-           Dark Theme FIX
-        ============================== */
+               Dark Theme FIX
+            ============================== */
     body.dark-theme .group-legend {
         color: #e9ecef !important;
     }
@@ -1175,12 +1238,11 @@
 
 </style>
 
-
 <style>
     /* ====================================================
-           HARD OVERRIDE: Selected row (Light + Dark)
-           Beats DataTables stripe + hover + dark theme
-        ==================================================== */
+        HARD OVERRIDE: Selected row (Light + Dark)
+        Beats DataTables stripe + hover + dark theme
+    ==================================================== */
 
     /* Force row AND cells to Bootstrap primary */
     body table.dataTable tbody tr.selected,
@@ -1202,3 +1264,88 @@
     }
 
 </style>
+
+@* #stationsTable_wrapper {
+    width: min(84vw, 800px) !important;
+} *@
+
+<style>
+    /* =====================================================
+           BASE: CENTER EVERYTHING (host + DataTables wrapper)
+        ====================================================== */
+    #stationsTableHost,
+    #stationsTableHost .dataTables_wrapper {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box;
+    }
+
+    /* =====================================================
+           DESKTOP ONLY: 1200px and up = 84%
+        ====================================================== */
+    #stationsTableHost {
+        width: 84%;
+        overflow-x: visible;
+    }
+
+    /* =====================================================
+           MID RANGE: 901px–1199px = 94%
+        ====================================================== */
+    @@media (max-width: 1199px) {
+        #stationsTableHost {
+            width: 94%;
+        }
+    }
+
+    /* =====================================================
+           MOBILE: 900px and below
+           FULL WIDTH + SCROLL + READABLE
+        ====================================================== */
+    @@media (max-width: 900px) {
+        /* === HOST: full width, owns the scrollbars === */
+        #stationsTableHost {
+            width: 100% !important;
+            padding-left: 4px;
+            padding-right: 4px;
+            overflow-x: auto !important;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* === TABLE: must be wider than viewport === */
+        #stationsTable {
+            width: auto !important;
+            min-width: 1100px !important; /* 🔑 forces horizontal scroll */
+            table-layout: fixed; /* 🔑 stops column collapse */
+        }
+            /* === CELLS: NEVER wrap on mobile === */
+            #stationsTable thead th,
+            #stationsTable tbody td {
+                white-space: nowrap !important;
+                font-size: 14px !important;
+                padding: 10px 8px !important;
+            }
+            /* === LIMIT VISIBLE ROWS (vertical scroll) === */
+            .dataTables_wrapper .dataTables_scrollBody,
+            #stationsTable tbody {
+                max-height: 55vh; /* 🔑 prevents “wall of rows” */
+                overflow-y: auto !important;
+            }
+        /* === TOUCH FRIENDLY ROWS === */
+        table.dataTable tbody tr {
+            height: 44px;
+        }
+    }
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+

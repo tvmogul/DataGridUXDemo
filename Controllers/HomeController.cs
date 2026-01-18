@@ -16,11 +16,11 @@ namespace DataGridUXDemo.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Mobile()
         {
             return View();
         }
-        public IActionResult Privacy2()
+        public IActionResult Desktop()
         {
             return View();
         }
