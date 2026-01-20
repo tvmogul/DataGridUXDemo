@@ -3,7 +3,7 @@
     var scriptNonce = Html.ScriptNonce();
 }
 
-<link rel="stylesheet" href="~/css/demo.css" />
+<link rel="stylesheet" href="~/css/groups.css" />
 
 <div style="margin-top: 0px !important; display: flex; justify-content: center; align-items: center;">
     <div style="position: relative; max-width: 800px; width: 100%; text-align: center;">
@@ -75,162 +75,6 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>KERO</td>
-                <td>TVH</td>
-                <td>CBS</td>
-                <td>Bakersfield</td>
-                <td>CA</td>
-                <td>USA</td>
-                <td>125</td>
-                <td>635</td>
-                <td>371</td>
-                <td>195</td>
-                <td>294</td>
-            </tr>
-            <tr>
-                <td>KABC</td>
-                <td>TVH</td>
-                <td>ABC</td>
-                <td>Los Angeles</td>
-                <td>CA</td>
-                <td>USA</td>
-                <td>450</td>
-                <td>2200</td>
-                <td>1650</td>
-                <td>12</td>
-                <td>18</td>
-            </tr>
-            <tr>
-                <td>KCBS</td>
-                <td>TVH</td>
-                <td>CBS</td>
-                <td>Los Angeles</td>
-                <td>CA</td>
-                <td>USA</td>
-                <td>480</td>
-                <td>2400</td>
-                <td>1800</td>
-                <td>9</td>
-                <td>14</td>
-            </tr>
-            <tr>
-                <td>KNBC</td>
-                <td>TVH</td>
-                <td>NBC</td>
-                <td>Los Angeles</td>
-                <td>CA</td>
-                <td>USA</td>
-                <td>470</td>
-                <td>2350</td>
-                <td>1750</td>
-                <td>11</td>
-                <td>16</td>
-            </tr>
-            <tr>
-                <td>KFOX</td>
-                <td>TVH</td>
-                <td>FOX</td>
-                <td>Los Angeles</td>
-                <td>CA</td>
-                <td>USA</td>
-                <td>420</td>
-                <td>2100</td>
-                <td>1550</td>
-                <td>15</td>
-                <td>21</td>
-            </tr>
-            <tr>
-                <td>WABC</td>
-                <td>TVH</td>
-                <td>ABC</td>
-                <td>New York</td>
-                <td>NY</td>
-                <td>USA</td>
-                <td>520</td>
-                <td>2600</td>
-                <td>1950</td>
-                <td>6</td>
-                <td>9</td>
-            </tr>
-            <tr>
-                <td>WCBS</td>
-                <td>TVH</td>
-                <td>CBS</td>
-                <td>New York</td>
-                <td>NY</td>
-                <td>USA</td>
-                <td>540</td>
-                <td>2750</td>
-                <td>2050</td>
-                <td>5</td>
-                <td>8</td>
-            </tr>
-            <tr>
-                <td>WNBC</td>
-                <td>TVH</td>
-                <td>NBC</td>
-                <td>New York</td>
-                <td>NY</td>
-                <td>USA</td>
-                <td>535</td>
-                <td>2700</td>
-                <td>2000</td>
-                <td>7</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>WNYW</td>
-                <td>TVH</td>
-                <td>FOX</td>
-                <td>New York</td>
-                <td>NY</td>
-                <td>USA</td>
-                <td>500</td>
-                <td>2550</td>
-                <td>1900</td>
-                <td>10</td>
-                <td>15</td>
-            </tr>
-            <tr>
-                <td>WLS</td>
-                <td>TVH</td>
-                <td>ABC</td>
-                <td>Chicago</td>
-                <td>IL</td>
-                <td>USA</td>
-                <td>360</td>
-                <td>1850</td>
-                <td>1350</td>
-                <td>22</td>
-                <td>31</td>
-            </tr>
-            <tr>
-                <td>WBBM</td>
-                <td>TVH</td>
-                <td>CBS</td>
-                <td>Chicago</td>
-                <td>IL</td>
-                <td>USA</td>
-                <td>370</td>
-                <td>1900</td>
-                <td>1400</td>
-                <td>20</td>
-                <td>28</td>
-            </tr>
-            <tr>
-                <td>WMAQ</td>
-                <td>TVH</td>
-                <td>NBC</td>
-                <td>Chicago</td>
-                <td>IL</td>
-                <td>USA</td>
-                <td>365</td>
-                <td>1880</td>
-                <td>1380</td>
-                <td>21</td>
-                <td>29</td>
-            </tr>
         </tbody>
     </table>
 </div>
@@ -251,12 +95,12 @@
 </div>
 
 <!-- Group Bar (placeholder for drag-to-group) -->
-<div id="groupZone" class="drop-zone">
+<div id="groupZone" class="drop-zone groupeddt-hidden">
     Drag column headers here to group
 </div>
 
 <!-- Group Legend (placeholder for Legend) -->
-<div id="groupLegend" class="group-legend">
+<div id="groupLegend" class="group-legend groupeddt-hidden">
     <span class="legend-item">
         <span class="legend-icon">≡</span>
         groups
@@ -280,22 +124,178 @@
 
 @section Scripts {
 
-    <script nonce="@scriptNonce">
-        // Disable groups.js auto-init so this view explicitly initializes the instance (injectable selectors/config)
-        window.GroupedDT_CONFIG = window.GroupedDT_CONFIG || {};
-        window.GroupedDT_CONFIG.autoInit = false;
-    </script>
-
     <script src="/js/groups.js" nonce="@scriptNonce"></script>
 
     <script nonce="@scriptNonce">
+
+        $('#groupZone, #groupLegend').removeClass('groupeddt-hidden');
+        // $('#groupZone, #groupLegend').addClass('groupeddt-hidden');
+
+        var table1 = null;
+
+        // DATA SOURCE FOR GRID (VIEW ONLY)
+        var stationsData = [
+            ["KERO", "TVH", "CBS", "Bakersfield", "CA", "USA", 125, 635, 371, 195, 294],
+            ["KABC", "TVH", "ABC", "Los Angeles", "CA", "USA", 450, 2200, 1650, 12, 18],
+            ["KCBS", "TVH", "CBS", "Los Angeles", "CA", "USA", 480, 2400, 1800, 9, 14],
+            ["KNBC", "TVH", "NBC", "Los Angeles", "CA", "USA", 470, 2350, 1750, 11, 16],
+            ["KFOX", "TVH", "FOX", "Los Angeles", "CA", "USA", 420, 2100, 1550, 15, 21],
+            ["WABC", "TVH", "ABC", "New York", "NY", "USA", 520, 2600, 1950, 6, 9],
+            ["WCBS", "TVH", "CBS", "New York", "NY", "USA", 540, 2750, 2050, 5, 8],
+            ["WNBC", "TVH", "NBC", "New York", "NY", "USA", 535, 2700, 2000, 7, 10],
+            ["WNYW", "TVH", "FOX", "New York", "NY", "USA", 500, 2550, 1900, 10, 15],
+            ["WLS", "TVH", "ABC", "Chicago", "IL", "USA", 360, 1850, 1350, 22, 31],
+            ["WBBM", "TVH", "CBS", "Chicago", "IL", "USA", 370, 1900, 1400, 20, 28],
+            ["WMAQ", "TVH", "NBC", "Chicago", "IL", "USA", 365, 1880, 1380, 21, 29]
+        ];
+
+        // ==============================================
+        // ROW SELECTION + TEXTBOX FILLING (VIEW ONLY)
+        // ==============================================
+        (function initRowSelectionOnly() {
+
+            function bindRowSelectionOnly() {
+
+                var $tbody = $('#stationsTable tbody');
+
+                $tbody.off('click.rowSelect touchstart.rowSelect')
+                      .on('click.rowSelect touchstart.rowSelect', 'tr', function (e) {
+
+                          var $tr = $(this);
+
+                          // Ignore group rows entirely (row selection is independent)
+                          if ($tr.hasClass('group-row')) return;
+
+                          // Only run if DataTable is already initialized (avoid accidental auto-init)
+                          if (!$.fn.dataTable || !$.fn.dataTable.isDataTable || !$.fn.dataTable.isDataTable('#stationsTable')) return;
+
+                          var dt = $('#stationsTable').DataTable();
+
+                          if (!dt.data().any()) return;
+
+                          var rowData = dt.row(this).data();
+                          if (!rowData) return;
+
+                          $('#callsignTextBox').val(rowData[0]);
+                          $('#aff1TextBox').val(rowData[2] || '');
+                          $('#mediatypeTextBox').val(rowData[1] || '');
+                          $('#minMGrossTextBox').val(rowData[6] || '');
+                          $('#maxMGrossTextBox').val(rowData[7] || '');
+                          $('#maxPayTextBox').val(rowData[8] || '');
+                          $('#buysRankTextBox').val(rowData[9] || '');
+                          $('#callsRankTextBox').val(rowData[10] || '');
+
+                          // Limit selection clearing to the DataTable's rows
+                          try {
+                              dt.$('tbody tr').removeClass('selected');
+                          } catch (ex) {
+                              $('#stationsTable tbody tr').removeClass('selected');
+                          }
+
+                          $tr.addClass('selected');
+
+                          if (e && e.type === 'touchstart') {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              return false;
+                          }
+                      });
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", bindRowSelectionOnly);
+            } else {
+                bindRowSelectionOnly();
+            }
+
+        })();
+
+        // Header theme toggle (VIEW ONLY)
+        (function initHeaderThemeToggle() {
+            const tableEl = document.getElementById("stationsTable");
+            const btn = document.getElementById("toggleTableHeaderTheme");
+            if (!tableEl || !btn) return;
+
+            btn.addEventListener("click", function () {
+                if (tableEl.classList.contains("dt-header-dark")) {
+                    tableEl.classList.remove("dt-header-dark");
+                    tableEl.classList.add("dt-header-light");
+                } else {
+                    tableEl.classList.remove("dt-header-light");
+                    tableEl.classList.add("dt-header-dark");
+                }
+            });
+        })();
+
+        // Theme toggle (VIEW ONLY)
+        (function initThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            if (!themeToggle) return;
+
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(currentTheme);
+
+            themeToggle.addEventListener('click', function () {
+                const newTheme = (document.body.classList.contains('dark-theme')) ? 'light' : 'dark';
+                applyTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.classList.remove('light-theme');
+                    document.body.classList.add('dark-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                    themeToggle.textContent = '☀️ Light Mode';
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    document.body.classList.add('light-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'light');
+                    themeToggle.textContent = '🌙 Dark Mode';
+                }
+            }
+        })();
+
+        // Viewport width (VIEW ONLY)
+        (function initViewportWidth() {
+            function updateViewportWidth() {
+                var el = document.getElementById("vw");
+                if (!el) return;
+                el.textContent = window.innerWidth;
+            }
+
+            window.removeEventListener("resize", updateViewportWidth);
+            window.addEventListener("resize", updateViewportWidth);
+            updateViewportWidth();
+        })();
+
+        // ✅ Ensure global theme is applied on this view based on saved preference (VIEW ONLY)
+        (function initGlobalTheme() {
+            try {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+
+                if (savedTheme === 'dark') {
+                    document.body.classList.remove('light-theme');
+                    document.body.classList.add('dark-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    document.body.classList.add('light-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'light');
+                }
+            } catch (e) {
+                console.warn('Theme init failed on Welcome view:', e);
+            }
+        })();
+
         (function () {
 
             function boot() {
 
                 // BUILD THE GRID (DataTable) IN THE VIEW
-                var table = $('#stationsTable').DataTable({
+                table1 = $('#stationsTable').DataTable({
                     dom: '<"dt-top-row"l<"group-zone-holder"><"dt-spacer">f>rtip',
+                    data: stationsData,
                     paging: true,
                     searching: true,
                     info: true,
@@ -313,7 +313,7 @@
                 });
 
                 setTimeout(function () {
-                    table.columns.adjust().draw(false);
+                    table1.columns.adjust().draw(false);
                 }, 0);
 
                 // GROUPS ONLY (groups.js)
@@ -324,105 +324,6 @@
                         groupLegendSelector: "#groupLegend"
                     });
                 }
-
-                // ROW SELECTION + TEXTBOX FILLING (VIEW ONLY)
-                $('#stationsTable tbody').off('click.rowSelect').on('click.rowSelect', 'tr:not(.group-row)', function () {
-
-                    if (!table.data().any()) return;
-
-                    var rowData = table.row(this).data();
-                    if (!rowData) return;
-
-                    $('#callsignTextBox').val(rowData[0]);
-                    $('#aff1TextBox').val(rowData[2] || '');
-                    $('#mediatypeTextBox').val(rowData[1] || '');
-                    $('#minMGrossTextBox').val(rowData[6] || '');
-                    $('#maxMGrossTextBox').val(rowData[7] || '');
-                    $('#maxPayTextBox').val(rowData[8] || '');
-                    $('#buysRankTextBox').val(rowData[9] || '');
-                    $('#callsRankTextBox').val(rowData[10] || '');
-
-                    $('#stationsTable tbody tr').removeClass('selected');
-                    $(this).addClass('selected');
-                });
-
-                // Header theme toggle (VIEW ONLY)
-                (function initHeaderThemeToggle() {
-                    const tableEl = document.getElementById("stationsTable");
-                    const btn = document.getElementById("toggleTableHeaderTheme");
-                    if (!tableEl || !btn) return;
-
-                    btn.addEventListener("click", function () {
-                        if (tableEl.classList.contains("dt-header-dark")) {
-                            tableEl.classList.remove("dt-header-dark");
-                            tableEl.classList.add("dt-header-light");
-                        } else {
-                            tableEl.classList.remove("dt-header-light");
-                            tableEl.classList.add("dt-header-dark");
-                        }
-                    });
-                })();
-
-                // Theme toggle (VIEW ONLY)
-                (function initThemeToggle() {
-                    const themeToggle = document.getElementById('themeToggle');
-                    if (!themeToggle) return;
-
-                    const currentTheme = localStorage.getItem('theme') || 'light';
-                    applyTheme(currentTheme);
-
-                    themeToggle.addEventListener('click', function () {
-                        const newTheme = (document.body.classList.contains('dark-theme')) ? 'light' : 'dark';
-                        applyTheme(newTheme);
-                        localStorage.setItem('theme', newTheme);
-                    });
-
-                    function applyTheme(theme) {
-                        if (theme === 'dark') {
-                            document.body.classList.remove('light-theme');
-                            document.body.classList.add('dark-theme');
-                            document.documentElement.setAttribute('data-bs-theme', 'dark');
-                            themeToggle.textContent = '☀️ Light Mode';
-                        } else {
-                            document.body.classList.remove('dark-theme');
-                            document.body.classList.add('light-theme');
-                            document.documentElement.setAttribute('data-bs-theme', 'light');
-                            themeToggle.textContent = '🌙 Dark Mode';
-                        }
-                    }
-                })();
-
-                // Viewport width (VIEW ONLY)
-                (function initViewportWidth() {
-                    function updateViewportWidth() {
-                        var el = document.getElementById("vw");
-                        if (!el) return;
-                        el.textContent = window.innerWidth;
-                    }
-
-                    window.removeEventListener("resize", updateViewportWidth);
-                    window.addEventListener("resize", updateViewportWidth);
-                    updateViewportWidth();
-                })();
-
-                // ✅ Ensure global theme is applied on this view based on saved preference (VIEW ONLY)
-                (function initGlobalTheme() {
-                    try {
-                        const savedTheme = localStorage.getItem('theme') || 'light';
-
-                        if (savedTheme === 'dark') {
-                            document.body.classList.remove('light-theme');
-                            document.body.classList.add('dark-theme');
-                            document.documentElement.setAttribute('data-bs-theme', 'dark');
-                        } else {
-                            document.body.classList.remove('dark-theme');
-                            document.body.classList.add('light-theme');
-                            document.documentElement.setAttribute('data-bs-theme', 'light');
-                        }
-                    } catch (e) {
-                        console.warn('Theme init failed on Welcome view:', e);
-                    }
-                })();
 
             }
 
@@ -436,3 +337,11 @@
     </script>
 
 }
+
+<style>
+
+/*     .groupeddt-hidden {
+        display: none !important;
+    } */
+
+</style>

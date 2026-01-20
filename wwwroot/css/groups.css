@@ -514,16 +514,16 @@ div.dt-buttons {
 }
 
 /* =====================================================
-            DESKTOP ONLY: 1200px and up = 84%
-        ====================================================== */
+    DESKTOP ONLY: 1200px and up = 84%
+====================================================== */
 #stationsTableHost {
     width: 84%;
     overflow-x: visible;
 }
 
 /* =====================================================
-            MID RANGE: 901px–1199px = 94%
-        ====================================================== */
+    MID RANGE: 901px–1199px = 94%
+====================================================== */
 @media (max-width: 1199px) {
     #stationsTableHost {
         width: 94%;
@@ -531,9 +531,9 @@ div.dt-buttons {
 }
 
 /* =====================================================
-                   MOBILE: 900px and below
-                   FULL WIDTH + SCROLL + READABLE
-                ====================================================== */
+    MOBILE: 900px and below
+    FULL WIDTH + SCROLL + READABLE
+====================================================== */
 @media (max-width: 900px) {
     /* === HOST: full width, owns the scrollbars === */
     #stationsTableHost {
@@ -633,62 +633,16 @@ div.dt-buttons {
     }
 
 
+}
 
 
 
 
+.groupeddt-hidden {
+    display: none !important;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* Put Group tools to the RIGHT of DataTables pagination */
-    .dataTables_wrapper .dt-paging {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-
-    .dataTables_wrapper .dt-paging nav {
-        margin: 0;
-    }
-
-    .dataTables_wrapper .dt-paging .group-tools-slot {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    /* Optional: make the drop zone look good inline */
-    .dataTables_wrapper .dt-paging #groupZone {
-        margin: 0;
-        padding: 6px 10px;
-        display: inline-flex;
-        align-items: center;
-        white-space: nowrap;
-    }
-
-    .dataTables_wrapper .dt-paging #groupLegend {
-        margin: 0;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        white-space: nowrap;
-    }
 
 
 
