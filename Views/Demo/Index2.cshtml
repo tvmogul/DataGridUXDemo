@@ -1,0 +1,1326 @@
+﻿﻿@{
+// Html.RenderPartial("_jwt_token_check");
+ViewData["Title"] = "JQuery DataTable Demo";
+var scriptNonce = Html.ScriptNonce();
+    //var styleNonce = Html.StyleNonce();
+}
+
+<div style="margin-top: 0px !important; display: flex; justify-content: center; align-items: center;">
+    <div style="position: relative; max-width: 800px; width: 100%; text-align: center;">
+        <canvas id="netcanvas" width="800" height="70"
+                style="display: block; width: 100%; height: 70px; border: none transparent;">
+        </canvas>
+        <div class="table-block" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); text-align: center;">
+            <table style="margin: 0 auto;">
+                <tr>
+                    @* <td style="text-align: right !important;">
+                        <img src="/img/title_tv.gif" alt="Settings"
+                                style="height: 70px; vertical-align: top; margin-top: -22px; margin-right: 4px;">
+                    </td> *@
+                    <td style="text-align: left !important;">
+                        <h2 style="font-size: 1.8em; margin-bottom: 0px; white-space: nowrap;">
+                            @ViewData["Title"]
+                        </h2>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="viewportInfo" style="text-align:center;font-size:12px;margin-bottom:6px;">
+    Viewport: <span id="vw"></span> px
+</div>
+@* <div style="text-align:center;margin-bottom:8px;">
+    <label style="margin-right:6px;">Test wrapper width:</label>
+    <select id="widthTester">
+        <option value="">Auto (responsive)</option>
+        <option value="1400">1400px (Large Desktop)</option>
+        <option value="1280">1280px (Desktop)</option>
+        <option value="1100">1100px (Laptop)</option>
+        <option value="900">900px (Tablet)</option>
+        <option value="700">700px (Phone)</option>
+    </select>
+</div> *@
+
+<div class="d-flex align-items-center gap-2 p-1 border rounded mx-auto"
+     style="width: 80%;">
+
+    <button id="themeToggle"
+            class="btn btn-outline-secondary btn-sm">
+        🌙 Dark Mode
+    </button>
+
+    <button id="toggleTableHeaderTheme"
+            type="button"
+            class="btn btn-sm btn-outline-secondary">
+        Toggle Table Header Theme
+    </button>
+
+</div>
+
+<br />
+
+<div id="stationsTableHost">
+    <table id="stationsTable" class="display stripe hover dt-header-light" style="width:100%">
+        <thead>
+            <tr>
+                <th>callsign</th>
+                <th>media<br />type</th>
+                <th draggable="true">
+                    aff1
+                    <span class="drag-indicator">≡</span>
+                </th>
+                <th draggable="true">
+                    city
+                    <span class="drag-indicator">≡</span>
+                </th>
+                <th draggable="true">
+                    region
+                    <span class="drag-indicator">≡</span>
+                </th>
+                <th draggable="true">country</th>
+                <th draggable="true">Min<br />Media</th>
+                <th draggable="true">Max<br />Media</th>
+                <th draggable="true">Max<br />Pay</th>
+                <th draggable="true">Rank<br />Buys</th>
+                <th draggable="true">Rank<br />Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>KERO</td>
+                <td>TVH</td>
+                <td>CBS</td>
+                <td>Bakersfield</td>
+                <td>CA</td>
+                <td>USA</td>
+                <td>125</td>
+                <td>635</td>
+                <td>371</td>
+                <td>195</td>
+                <td>294</td>
+            </tr>
+            <tr>
+                <td>KABC</td>
+                <td>TVH</td>
+                <td>ABC</td>
+                <td>Los Angeles</td>
+                <td>CA</td>
+                <td>USA</td>
+                <td>450</td>
+                <td>2200</td>
+                <td>1650</td>
+                <td>12</td>
+                <td>18</td>
+            </tr>
+            <tr>
+                <td>KCBS</td>
+                <td>TVH</td>
+                <td>CBS</td>
+                <td>Los Angeles</td>
+                <td>CA</td>
+                <td>USA</td>
+                <td>480</td>
+                <td>2400</td>
+                <td>1800</td>
+                <td>9</td>
+                <td>14</td>
+            </tr>
+            <tr>
+                <td>KNBC</td>
+                <td>TVH</td>
+                <td>NBC</td>
+                <td>Los Angeles</td>
+                <td>CA</td>
+                <td>USA</td>
+                <td>470</td>
+                <td>2350</td>
+                <td>1750</td>
+                <td>11</td>
+                <td>16</td>
+            </tr>
+            <tr>
+                <td>KFOX</td>
+                <td>TVH</td>
+                <td>FOX</td>
+                <td>Los Angeles</td>
+                <td>CA</td>
+                <td>USA</td>
+                <td>420</td>
+                <td>2100</td>
+                <td>1550</td>
+                <td>15</td>
+                <td>21</td>
+            </tr>
+            <tr>
+                <td>WABC</td>
+                <td>TVH</td>
+                <td>ABC</td>
+                <td>New York</td>
+                <td>NY</td>
+                <td>USA</td>
+                <td>520</td>
+                <td>2600</td>
+                <td>1950</td>
+                <td>6</td>
+                <td>9</td>
+            </tr>
+            <tr>
+                <td>WCBS</td>
+                <td>TVH</td>
+                <td>CBS</td>
+                <td>New York</td>
+                <td>NY</td>
+                <td>USA</td>
+                <td>540</td>
+                <td>2750</td>
+                <td>2050</td>
+                <td>5</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>WNBC</td>
+                <td>TVH</td>
+                <td>NBC</td>
+                <td>New York</td>
+                <td>NY</td>
+                <td>USA</td>
+                <td>535</td>
+                <td>2700</td>
+                <td>2000</td>
+                <td>7</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>WNYW</td>
+                <td>TVH</td>
+                <td>FOX</td>
+                <td>New York</td>
+                <td>NY</td>
+                <td>USA</td>
+                <td>500</td>
+                <td>2550</td>
+                <td>1900</td>
+                <td>10</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>WLS</td>
+                <td>TVH</td>
+                <td>ABC</td>
+                <td>Chicago</td>
+                <td>IL</td>
+                <td>USA</td>
+                <td>360</td>
+                <td>1850</td>
+                <td>1350</td>
+                <td>22</td>
+                <td>31</td>
+            </tr>
+            <tr>
+                <td>WBBM</td>
+                <td>TVH</td>
+                <td>CBS</td>
+                <td>Chicago</td>
+                <td>IL</td>
+                <td>USA</td>
+                <td>370</td>
+                <td>1900</td>
+                <td>1400</td>
+                <td>20</td>
+                <td>28</td>
+            </tr>
+            <tr>
+                <td>WMAQ</td>
+                <td>TVH</td>
+                <td>NBC</td>
+                <td>Chicago</td>
+                <td>IL</td>
+                <td>USA</td>
+                <td>365</td>
+                <td>1880</td>
+                <td>1380</td>
+                <td>21</td>
+                <td>29</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr />
+
+<h3>Selected Row Values</h3>
+
+<div class="compact-line">
+    <label>Callsign:</label><input id="callsignTextBox" />
+    <label>Aff1:</label><input id="aff1TextBox" />
+    <label>Media:</label><input id="mediatypeTextBox" />
+    <label>Min M:</label><input id="minMGrossTextBox" />
+    <label>Max M:</label><input id="maxMGrossTextBox" />
+    <label>Max Pay:</label><input id="maxPayTextBox" />
+    <label>RB:</label><input id="buysRankTextBox" />
+    <label>RO:</label><input id="callsRankTextBox" />
+</div>
+
+<!-- Group Bar (placeholder for drag-to-group) -->
+<div id="groupZone" class="drop-zone">
+    Drag column headers here to group
+</div>
+
+<!-- Group Legend (placeholder for Legend) -->
+<div id="groupLegend" class="group-legend">
+    <span class="legend-item">
+        <span class="legend-icon">≡</span>
+        groups
+    </span>
+    <span class="legend-item">
+        <span class="legend-icon">▲▼</span>
+        sort
+    </span>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+@section Scripts {
+
+    <script nonce="@scriptNonce">
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var groupedColumnIndex = null;
+
+            var table = $('#stationsTable').DataTable({
+                dom: '<"dt-top-row"l<"group-zone-holder"><"dt-spacer">f>rtip',
+                paging: true,
+                searching: true,
+                info: true,
+                order: [],
+                columnDefs: [
+                    // Center text columns
+                    { targets: [0, 1, 2, 4, 5], className: 'dt-center' },
+
+                    // Right-align numeric columns
+                    { targets: [6, 7, 8, 9, 10], className: 'dt-right' },
+
+                    //Left-align numeric columns
+                    { targets: [3], className: 'dt-left' }
+                ],
+                drawCallback: function () {
+                    if (groupedColumnIndex === null) return;
+
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
+
+                    api.column(groupedColumnIndex, { page: 'current' }).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before(
+                                '<tr class="group-row" data-group="' + group + '">' +
+                                '<td colspan="8"><span class="group-toggle">+</span> ' + group + '</td>' +
+                                '</tr>'
+                            );
+                            last = group;
+                        }
+                    });
+
+                    $('#stationsTable tbody tr:not(.group-row)').hide();
+
+                    if (groupedColumnIndex === null) return;
+                        /* unchanged */
+                    }
+            });
+
+            setTimeout(function () {
+                table.columns.adjust().draw(false);
+            }, 0);
+
+            $('#groupZone').appendTo('.group-zone-holder');
+            $('#groupLegend').appendTo('.group-zone-holder');
+
+            $('#stationsTable tbody').on('click', 'tr.group-row', function () {
+                var group = $(this).data('group');
+                var isOpen = $(this).hasClass('open');
+
+                $(this).toggleClass('open');
+                $(this).find('.group-toggle').text(isOpen ? '+' : '−');
+
+                $('#stationsTable tbody tr').each(function () {
+                    var rowData = table.row(this).data();
+                    if (!rowData) return;
+                    if (rowData[groupedColumnIndex] === group) {
+                        $(this).toggle(!isOpen);
+                    }
+                });
+            });
+
+            $('#stationsTable tbody').on('click', 'tr:not(.group-row)', function () {
+
+                if (!table.data().any()) return;
+
+                var rowData = table.row(this).data();
+                if (!rowData) return;
+
+                // Mimics Telerik GridView.CurrentRow.Cells["column"]
+                $('#callsignTextBox').val(rowData[0]);
+                $('#aff1TextBox').val(rowData[1]);
+                $('#mediatypeTextBox').val(rowData[2]);
+                $('#minMGrossTextBox').val(rowData[3]);
+                $('#maxMGrossTextBox').val(rowData[4]);
+                $('#maxPayTextBox').val(rowData[5]);
+                $('#buysRankTextBox').val(rowData[6]);
+                $('#callsRankTextBox').val(rowData[7]);
+
+                $('#stationsTable tbody tr').removeClass('selected');
+                $(this).addClass('selected');
+            });
+
+            //ADDED
+            // ✅ ADD: one place to apply grouping (used by desktop drop + mobile touch drop)
+            function applyGrouping(colIndex, colName) {
+
+                groupedColumnIndex = parseInt(colIndex);
+
+                $('#groupZone').html(
+                    '<strong>Grouped By:</strong> ' +
+                    '<span class="group-pill">' + colName +
+                    ' <span class="remove-group">✕</span></span>'
+                );
+
+                table.order([groupedColumnIndex, 'asc']).draw();
+            }
+
+            $('#stationsTable thead th').on('dragstart', function (e) {
+                e.originalEvent.dataTransfer.setData('colIndex', $(this).index());
+                e.originalEvent.dataTransfer.setData('colName', $(this).text());
+            });
+
+            $('#groupZone').on('dragover', function (e) {
+                e.preventDefault();
+            });
+
+
+            //ADDED
+            // ✅ ADD: Mobile touch-drag support for column headers -> drop on #groupZone
+            (function enableTouchHeaderDragDrop() {
+
+                // Inject tiny CSS so the drag "ghost" and drop highlight look good on mobile
+                var style = document.createElement('style');
+                style.textContent = `
+                    .th-touch-dragging { opacity: .6; }
+                    .touch-drop-active { outline: 2px solid #0d6efd; outline-offset: 2px; }
+                    .touch-drag-ghost {
+                        position: fixed;
+                        z-index: 999999;
+                        pointer-events: none;
+                        padding: 6px 10px;
+                        border-radius: 8px;
+                        font-size: 12px;
+                        background: rgba(0,0,0,.85);
+                        color: #fff;
+                        box-shadow: 0 6px 18px rgba(0,0,0,.25);
+                        transform: translate(-50%, -50%);
+                        white-space: nowrap;
+                    }
+                `;
+                document.head.appendChild(style);
+
+                var activeTh = null;
+                var activeColIndex = null;
+                var activeColName = null;
+                var ghost = null;
+                var dragging = false;
+
+                function pointInElement(el, x, y) {
+                    var r = el.getBoundingClientRect();
+                    return (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom);
+                }
+
+                function makeGhost(text) {
+                    var g = document.createElement('div');
+                    g.className = 'touch-drag-ghost';
+                    g.textContent = text;
+                    document.body.appendChild(g);
+                    return g;
+                }
+
+                function moveGhost(g, x, y) {
+                    g.style.left = x + 'px';
+                    g.style.top = y + 'px';
+                }
+
+                // Only attach to headers you already marked draggable="true"
+                $('#stationsTable thead th[draggable="true"]').on('touchstart', function (e) {
+
+                    // only 1-finger drag
+                    if (!e.touches || e.touches.length !== 1) return;
+
+                    // Prevent scroll ONLY while we're dragging a header
+                    e.preventDefault();
+
+                    activeTh = this;
+                    activeColIndex = $(this).index();
+                    activeColName = $(this).clone()     // clone so we don't include hidden span weirdness
+                        .children()
+                        .remove()
+                        .end()
+                        .text()
+                        .trim();
+
+                    dragging = true;
+
+                    $(activeTh).addClass('th-touch-dragging');
+
+                    // Create drag ghost
+                    ghost = makeGhost(activeColName || 'column');
+
+                    // Position immediately
+                    var t = e.touches[0];
+                    moveGhost(ghost, t.clientX, t.clientY);
+                });
+
+                // Use document-level move/end so it keeps working if finger leaves the <th>
+                document.addEventListener('touchmove', function (e) {
+
+                    if (!dragging || !ghost) return;
+                    if (!e.touches || e.touches.length !== 1) return;
+
+                    e.preventDefault();
+
+                    var t = e.touches[0];
+                    moveGhost(ghost, t.clientX, t.clientY);
+
+                    // Highlight drop zone when finger is over it
+                    var over = pointInElement(document.getElementById('groupZone'), t.clientX, t.clientY);
+                    $('#groupZone').toggleClass('touch-drop-active', over);
+
+                }, { passive: false });
+
+                document.addEventListener('touchend', function (e) {
+
+                    if (!dragging) return;
+
+                    // Finger released — finalize drop if over groupZone
+                    var gz = document.getElementById('groupZone');
+
+                    // touchend has no touches; use last ghost position by reading its style
+                    var x = ghost ? parseFloat(ghost.style.left || '0') : 0;
+                    var y = ghost ? parseFloat(ghost.style.top || '0') : 0;
+
+                    var over = gz ? pointInElement(gz, x, y) : false;
+
+                    // Cleanup UI
+                    $('#groupZone').removeClass('touch-drop-active');
+
+                    if (activeTh) $(activeTh).removeClass('th-touch-dragging');
+
+                    if (ghost && ghost.parentNode) ghost.parentNode.removeChild(ghost);
+
+                    ghost = null;
+                    dragging = false;
+
+                    // ✅ DROP ACTION
+                    if (over && activeColIndex !== null) {
+                        applyGrouping(activeColIndex, activeColName);
+                    }
+
+                    activeTh = null;
+                    activeColIndex = null;
+                    activeColName = null;
+
+                }, { passive: false });
+
+            })();
+
+            //ADDED
+            $('#groupZone').on('drop', function (e) {
+                e.preventDefault();
+
+                var colIndex = e.originalEvent.dataTransfer.getData('colIndex');
+                var colName = e.originalEvent.dataTransfer.getData('colName');
+
+                applyGrouping(colIndex, colName);
+            });
+
+            $('#groupZone').on('click', '.remove-group', function () {
+                groupedColumnIndex = null;
+
+                $('#groupZone')
+                    .html('Drag column headers here to group')
+                    .attr('class', 'drop-zone')
+
+                $('#stationsTable tbody tr').show();
+                table.order([]).draw();
+            });
+
+            const tableEl = document.getElementById("stationsTable");
+            const btn = document.getElementById("toggleTableHeaderTheme");
+
+            if (!tableEl || !btn) return;
+
+            btn.addEventListener("click", function () {
+                if (tableEl.classList.contains("dt-header-dark")) {
+                    tableEl.classList.remove("dt-header-dark");
+                    tableEl.classList.add("dt-header-light");
+                } else {
+                    tableEl.classList.remove("dt-header-light");
+                    tableEl.classList.add("dt-header-dark");
+                }
+            });
+
+            // window.addEventListener('resize', function () {
+            //     window.location.reload();
+            // });
+
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'light';
+
+            applyTheme(currentTheme);
+
+            themeToggle.addEventListener('click', function () {
+                const newTheme = (document.body.classList.contains('dark-theme')) ? 'light' : 'dark';
+                applyTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.classList.remove('light-theme');
+                    document.body.classList.add('dark-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'dark'); // ✅ apply globally for all views using Bootstrap
+                    themeToggle.textContent = '☀️ Light Mode';
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    document.body.classList.add('light-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'light'); // ✅ apply globally for all views using Bootstrap
+                    themeToggle.textContent = '🌙 Dark Mode';
+                }
+            }
+        });
+
+        // ✅ Ensure global theme is applied on this view based on saved preference
+        (function initGlobalTheme() {
+            try {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+
+                if (savedTheme === 'dark') {
+                    document.body.classList.remove('light-theme');
+                    document.body.classList.add('dark-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'dark'); // Bootstrap 5.3.3 global theme
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    document.body.classList.add('light-theme');
+                    document.documentElement.setAttribute('data-bs-theme', 'light'); // Bootstrap 5.3.3 global theme
+                }
+            } catch (e) {
+                console.warn('Theme init failed on Welcome view:', e);
+            }
+        })();
+
+    </script>
+
+    <script nonce="@scriptNonce">
+        function updateViewportWidth() {
+            document.getElementById("vw").textContent = window.innerWidth;
+        }
+
+        window.addEventListener("resize", updateViewportWidth);
+        document.addEventListener("DOMContentLoaded", updateViewportWidth);
+    </script>
+
+}
+
+<style>
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
+
+<style>
+    .group-toggle {
+        display: inline-block;
+        width: 18px;
+        text-align: center;
+        margin-right: 6px;
+        font-weight: bold;
+    }
+
+    .group-pill {
+        background: #007bff;
+        color: #fff;
+        padding: 3px 6px;
+        border-radius: 12px;
+        margin-left: 8px;
+        display: inline-block;
+    }
+
+    .remove-group {
+        cursor: pointer;
+        margin-left: 6px;
+        font-weight: bold;
+    }
+
+    input {
+        margin: 4px;
+        width: 120px;
+    }
+</style>
+
+<style>
+
+    .btn-sm-menu {
+        padding: 5px 5px;
+        font-size: 12px; /* Set the font size */
+        border-radius: 6px;
+        border: 1px solid #474747;
+    }
+
+    .btn-md-menu {
+        font-size: 0.875rem !important;
+        padding: 0.5rem 1rem !important;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .show {
+        display: block !important;
+    }
+
+    .hide {
+        display: none !important;
+    }
+
+    .panel_gray {
+        padding: 0px 4px 0px 4px !important;
+        color: white !important;
+        background: #000000; /* fallback for older browsers */
+        background: -moz-linear-gradient(top, #000000 0%, #333333 100%); /* Firefox 3.6-15 */
+        background: -webkit-linear-gradient(top, #000000 0%, #333333 100%); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #000000 0%, #333333 100%); /* Standard */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#333333', GradientType=0); /* IE6-9 */
+    }
+
+</style>
+
+
+
+<style>
+    .compact-line {
+        white-space: nowrap;
+        font-size: 12px;
+    }
+
+        .compact-line input {
+            font-size: 11px;
+            width: 70px;
+            padding: 2px 4px;
+            margin-right: 6px;
+        }
+
+        .compact-line label {
+            margin-right: 2px;
+        }
+</style>
+
+<style>
+    .drag-indicator {
+        display: inline-block;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    /* Group zone */
+    .group-zone-holder {
+        flex: 0 0 auto;
+        margin-left: 12px;
+    }
+
+    /* THE MAGIC: flexible spacer */
+    .dt-spacer {
+        flex: 1 1 auto;
+    }
+
+    /* Search box */
+    .dt-top-row .dataTables_filter {
+        flex: 0 0 auto;
+        margin-left: 0 !important;
+    }
+
+    .drop-zone {
+        border: 1px solid #d0d0d0;
+        background-color: #f5f5f5;
+        color: #333;
+        padding: 3px 6px;
+        border-radius: 4px;
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+        font-size: 0.9em !important
+    }
+
+        .drop-zone.drag-over {
+            border-color: #6c757d;
+            background-color: #e9ecef;
+        }
+
+        .drop-zone.active {
+            border-color: #adb5bd;
+            background-color: #f8f9fa;
+        }
+
+    /* Drag handle stays inline */
+    .drag-indicator {
+        display: inline-block;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+</style>
+
+<style>
+
+    body.dark-theme table.dataTable tbody tr:hover:not(.selected) {
+        background-color: #343a40 !important;
+    }
+
+    tr.group-row {
+        background-color: #eee;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    table.dataTable thead th {
+        position: relative;
+        padding-right: 32px; /* room for sort arrows + drag icon */
+    }
+
+        table.dataTable thead th.sorting::after,
+        table.dataTable thead th.sorting_asc::after,
+        table.dataTable thead th.sorting_desc::after {
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+    /* Prevent header wrapping */
+    table.dataTable thead th {
+        white-space: nowrap;
+        position: relative;
+        padding-right: 32px;
+    }
+
+        /* Sort arrows stay inline */
+        table.dataTable thead th.sorting::after,
+        table.dataTable thead th.sorting_asc::after,
+        table.dataTable thead th.sorting_desc::after {
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+    .table-block {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: transparent;
+        color: black;
+        z-index: 999;
+        margin: 0, auto !important;
+    }
+
+    /* BEGIN FIXED HEADER GRID SETTINGS */
+    .dt-scroll-body::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+
+    .dt-scroll-body::-webkit-scrollbar {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+
+    .dt-scroll-body::-webkit-scrollbar-thumb {
+        background-color: #777;
+        border-radius: 10px;
+    }
+    /* END FIXED HEADER GRID SETTINGS */
+
+    table.dataTable td {
+        font-size: .7em; /* Adjust the size as needed */
+    }
+
+    table.dataTable th {
+        font-size: .85em !important;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Light theme row striping (unchanged) */
+    body.light-theme table.dataTable tr:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+
+    body.light-theme table.dataTable tr:nth-child(odd) {
+        background-color: #EFF1F1;
+    }
+
+    /* Dark theme row striping (FIXED – higher contrast) */
+    body.dark-theme table.dataTable tr:nth-child(even) {
+        background-color: #2b2f33 !important;
+    }
+
+    body.dark-theme table.dataTable tr:nth-child(odd) {
+        background-color: #23272b !important;
+    }
+
+    /* Dark theme text clarity */
+    body.dark-theme table.dataTable tbody td {
+        color: #e9ecef !important;
+    }
+
+
+    /* Change color of paging button text */
+    .dataTables_wrapper .dataTables_paginate .page-link {
+        color: black !important;
+    }
+
+    /* Change the active button text and background color */
+    .dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
+        color: white !important;
+        background-color: black !important;
+    }
+
+    table.dataTable tbody tr {
+        font-size: 1.2em !important;
+    }
+
+    .dt-top-row {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+        /* Length dropdown */
+        .dt-top-row .dataTables_length {
+            flex: 0 0 auto;
+        }
+</style>
+
+<style>
+    /* Force DataTables sort icons to white */
+    table#stationsTable.dt-header-dark thead th.sorting::before,
+    table#stationsTable.dt-header-dark thead th.sorting::after,
+    table#stationsTable.dt-header-dark thead th.sorting_asc::before,
+    table#stationsTable.dt-header-dark thead th.sorting_asc::after,
+    table#stationsTable.dt-header-dark thead th.sorting_desc::before,
+    table#stationsTable.dt-header-dark thead th.sorting_desc::after {
+        background-color: #ffffff !important;
+        opacity: 1 !important;
+    }
+
+    table#stationsTable.dt-header-light thead th.sorting::before,
+    table#stationsTable.dt-header-light thead th.sorting::after,
+    table#stationsTable.dt-header-light thead th.sorting_asc::before,
+    table#stationsTable.dt-header-light thead th.sorting_asc::after,
+    table#stationsTable.dt-header-light thead th.sorting_desc::before,
+    table#stationsTable.dt-header-light thead th.sorting_desc::after {
+        background-color: #000000 !important;
+        opacity: 1 !important;
+    }
+
+    table.dataTable thead th.sorting,
+    table.dataTable thead th.sorting_asc,
+    table.dataTable thead th.sorting_desc {
+        background-image: none !important;
+    }
+
+    table.dataTable thtable.dataTable thead th {
+        color: white !important;
+    }
+
+    /* Force DataTables sort arrows color by theme (new dt-column-order system) */
+    table#stationsTable.dt-header-dark thead {
+        --dt-sort-icon-color: #ffffff !important;
+    }
+
+    table#stationsTable.dt-header-light thead {
+        --dt-sort-icon-color: #000000 !important;
+    }
+
+    /* Remove default icon display */
+    table.dataTable thead th span.dt-column-order:before,
+    table.dataTable thead th span.dt-column-order:after {
+        content: "" !important;
+    }
+
+    /* FIX: Make the sort container a vertically centered stack so ▲ and ▼ align */
+    table.dataTable thead th span.dt-column-order {
+        display: inline-flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 10px !important;
+        margin-left: 6px !important;
+        vertical-align: middle !important;
+        line-height: 1 !important;
+    }
+
+    /* Add custom up arrow for sorting (theme-controlled color) */
+    table#stationsTable.dt-header-dark thead th.dt-orderable-asc span.dt-column-order:before,
+    table#stationsTable.dt-header-dark thead th.dt-ordering-asc span.dt-column-order:before {
+        content: "▲" !important;
+        color: #ffffff !important;
+        opacity: 1 !important;
+        margin-right: 0 !important;
+        font-size: 9px !important;
+        line-height: 9px !important;
+        display: block !important;
+        width: 10px !important;
+        text-align: center !important;
+    }
+
+    table#stationsTable.dt-header-light thead th.dt-orderable-asc span.dt-column-order:before,
+    table#stationsTable.dt-header-light thead th.dt-ordering-asc span.dt-column-order:before {
+        content: "▲" !important;
+        color: #000000 !important;
+        opacity: 1 !important;
+        margin-right: 0 !important;
+        font-size: 9px !important;
+        line-height: 9px !important;
+        display: block !important;
+        width: 10px !important;
+        text-align: center !important;
+    }
+
+    /* Add custom down arrow for sorting (theme-controlled color) */
+    table#stationsTable.dt-header-dark thead th.dt-orderable-desc span.dt-column-order:after,
+    table#stationsTable.dt-header-dark thead th.dt-ordering-desc span.dt-column-order:after {
+        content: "▼" !important;
+        color: #ffffff !important;
+        opacity: 1 !important;
+        margin-left: 0 !important;
+        font-size: 9px !important;
+        line-height: 9px !important;
+        display: block !important;
+        width: 10px !important;
+        text-align: center !important;
+    }
+
+    table#stationsTable.dt-header-light thead th.dt-orderable-desc span.dt-column-order:after,
+    table#stationsTable.dt-header-light thead th.dt-ordering-desc span.dt-column-order:after {
+        content: "▼" !important;
+        color: #000000 !important;
+        opacity: 1 !important;
+        margin-left: 0 !important;
+        font-size: 9px !important;
+        line-height: 9px !important;
+        display: block !important;
+        width: 10px !important;
+        text-align: center !important;
+    }
+
+</style>
+
+<style>
+
+    /* ====================================================
+            FINAL OVERRIDE – MUST BE LAST
+        ====================================================== */
+    table#stationsTable.dt-header-light thead tr {
+        background: linear-gradient( 180deg, #ffffff 0%, #e6e6e6 35%, #c4c4c4 100% ) !important;
+        color: #222 !important;
+        text-align: center;
+        padding: 10px;
+        border: none;
+    }
+
+    table#stationsTable.dt-header-dark thead tr {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+        color: white;
+        text-align: center;
+        padding: 10px;
+        border: none;
+    }
+
+    /* ====================================================
+            FIX: CENTER HEADER TEXT WITHOUT BREAKING ICONS
+        ====================================================== */
+
+    /* Center header text only */
+    table#stationsTable thead th {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+
+    /* Keep header content inline (text + icons side-by-side) */
+    table#stationsTable thead th {
+        display: table-cell !important;
+    }
+
+        /* Drag icon stays inline and spaced */
+        table#stationsTable thead th .drag-indicator {
+            display: inline-block !important;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        /* Sort icon container stays inline and spaced */
+        table#stationsTable thead th span.dt-column-order {
+            display: inline-flex !important;
+            flex-direction: column !important;
+            margin-left: 6px !important;
+            vertical-align: middle !important;
+        }
+
+        /* Prevent stacking */
+        table#stationsTable thead th * {
+            white-space: nowrap;
+        }
+
+</style>
+
+<style>
+    /* ==============================
+            Group Legend – Light & Dark
+        ============================== */
+
+    /* Base (light theme – unchanged look) */
+    .group-legend {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: 12px;
+        font-size: 0.85em;
+        color: #444;
+        white-space: nowrap;
+    }
+
+    .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .legend-icon {
+        font-weight: bold;
+        font-size: 0.95em;
+    }
+
+    /* ==============================
+            Dark Theme FIX
+        ============================== */
+    body.dark-theme .group-legend {
+        color: #e9ecef !important;
+    }
+
+        body.dark-theme .group-legend .legend-icon {
+            color: #ffffff !important;
+        }
+
+</style>
+
+<style>
+    /* ====================================================
+            HARD OVERRIDE: Selected row (Light + Dark)
+            Beats DataTables stripe + hover + dark theme
+        ==================================================== */
+
+    /* Force row AND cells to Bootstrap primary */
+    body table.dataTable tbody tr.selected,
+    body table.dataTable tbody tr.selected:hover {
+        background-color: #0d6efd !important;
+    }
+
+        /* CRITICAL: override per-cell backgrounds applied by DataTables */
+        body table.dataTable tbody tr.selected td,
+        body table.dataTable tbody tr.selected:hover td {
+            background-color: #0d6efd !important;
+            color: #ffffff !important;
+        }
+
+    /* Kill dark-theme striping on selected row */
+    body.dark-theme table.dataTable tbody tr.selected:nth-child(even),
+    body.dark-theme table.dataTable tbody tr.selected:nth-child(odd) {
+        background-color: #0d6efd !important;
+    }
+
+</style>
+
+<style>
+    #stationsTable {
+        width: 100% !important;
+    }
+    /* aligns buttons on same line as search */
+    div.dt-buttons {
+        float: left !important;
+    }
+
+    /* =====================================================
+            BASE: CENTER EVERYTHING (host + DataTables wrapper)
+        ====================================================== */
+    #stationsTableHost,
+    #stationsTableHost .dataTables_wrapper {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box;
+    }
+
+    /* =====================================================
+            DESKTOP ONLY: 1200px and up = 84%
+        ====================================================== */
+    #stationsTableHost {
+        width: 84%;
+        overflow-x: visible;
+    }
+
+    /* =====================================================
+            MID RANGE: 901px–1199px = 94%
+        ====================================================== */
+    @@media (max-width: 1199px) {
+        #stationsTableHost {
+            width: 94%;
+        }
+    }
+
+    /* =====================================================
+                   MOBILE: 900px and below
+                   FULL WIDTH + SCROLL + READABLE
+                ====================================================== */
+    @@media (max-width: 900px) {
+        /* === HOST: full width, owns the scrollbars === */
+        #stationsTableHost {
+            width: 100% !important;
+            padding-left: 4px;
+            padding-right: 4px;
+            overflow-x: auto !important;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* === TABLE: must be wider than viewport === */
+        #stationsTable {
+            width: auto !important;
+            min-width: 1100px !important; /* 🔑 forces horizontal scroll */
+            table-layout: fixed; /* 🔑 stops column collapse */
+        }
+            /* === CELLS: NEVER wrap on mobile === */
+            #stationsTable thead th,
+            #stationsTable tbody td {
+                white-space: nowrap !important;
+                font-size: 14px !important;
+                padding: 10px 8px !important;
+            }
+            /* === LIMIT VISIBLE ROWS (vertical scroll) === */
+            .dataTables_wrapper .dataTables_scrollBody,
+            #stationsTable tbody {
+                max-height: 55vh; /* 🔑 prevents “wall of rows” */
+                overflow-y: auto !important;
+            }
+        /* === TOUCH FRIENDLY ROWS === */
+        table.dataTable tbody tr {
+            height: 44px;
+        }
+    }
+
+</style>
+
+@* #stationsTable_wrapper {
+    width: min(84vw, 800px) !important;
+} *@
+
+<style>
+    @@media (max-width: 600px) {
+        /* === HOST: full width, owns the scrollbars === */
+        #stationsTableHost {
+            width: 100% !important;
+            padding-left: 4px;
+            padding-right: 4px;
+            overflow-x: auto !important;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* === TABLE: must be wider than viewport === */
+        #stationsTable {
+            width: auto !important;
+            min-width: 1100px !important; /* 🔑 forces horizontal scroll */
+            table-layout: fixed; /* 🔑 stops column collapse */
+        }
+            /* === CELLS: NEVER wrap on mobile === */
+            #stationsTable thead th,
+            #stationsTable tbody td {
+                white-space: nowrap !important;
+                font-size: 14px !important;
+                padding: 10px 8px !important;
+            }
+            /* === LIMIT VISIBLE ROWS (vertical scroll) === */
+            .dataTables_wrapper .dataTables_scrollBody,
+            #stationsTable tbody {
+                max-height: 55vh; /* 🔑 prevents “wall of rows” */
+                overflow-y: auto !important;
+            }
+        /* === TOUCH FRIENDLY ROWS === */
+        table.dataTable tbody tr {
+            height: 44px;
+        }
+
+        #stationsTable thead {
+            display: table-header-group !important;
+        }
+
+        #stationsTable tbody {
+            display: table-row-group !important;
+        }
+
+        #stationsTable tr {
+            display: table-row !important;
+        }
+
+        #stationsTable th,
+        #stationsTable td {
+            display: table-cell !important;
+            white-space: normal !important;
+            padding: 4px 6px !important;
+            text-align: left;
+            box-sizing: border-box !important;
+            vertical-align: top;
+        }
+
+        #mRequests th {
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.1 !important;
+            padding: 3px 5px !important;
+        }
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
