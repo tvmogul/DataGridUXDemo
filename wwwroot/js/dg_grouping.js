@@ -55,7 +55,7 @@
             tableSelector: '#stationsTable',
             groupZoneSelector: '#groupZone',
             groupLegendSelector: '#groupLegend',
-            groupZoneEmptyHtml: 'Drag column headers here to group',
+            groupZoneEmptyHtml: 'Drag column<br />here to group',
             draggableHeaderSelector: 'thead th[draggable="true"]'
         };
 
